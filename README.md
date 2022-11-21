@@ -1,8 +1,8 @@
-##Development enviroment 
-IDE:
+##Development enviroment<br>
+IDE:<br>
 VS Code
 
-Languages:
+Languages:<br>
 C#
 
 ##DoD
