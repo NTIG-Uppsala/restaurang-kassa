@@ -1,3 +1,10 @@
+##Development enviroment 
+IDE:
+VS Code
+
+Languages:
+C#
+
 ##DoD
 
 -Unless everyone present has worked together, the remaining people must check the task before it can be considered done.
