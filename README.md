@@ -1,11 +1,12 @@
-##Development enviroment<br>
-IDE:<br>
+# Development enviroment<br>
+
+## IDE<br>
 VS Code
 
-Languages:<br>
+## Languages<br>
 C#
 
-##DoD
+# DoD
 
 -Unless everyone present has worked together, the remaining people must check the task before it can be considered done.
 
