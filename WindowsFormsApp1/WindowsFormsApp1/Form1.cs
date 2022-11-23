@@ -65,6 +65,7 @@ namespace WindowsFormsApp1
                 var labelToRemove = this.Controls["createdLabel"];
                 this.Controls.Remove(labelToRemove);
             }
+            count = 0;
             price = 0;
             position = 100;
             label1.Text = price.ToString() + "kr";
