@@ -19,20 +19,23 @@ namespace WindowsFormsApp1
 
         public int position = 100;
         public int price = 0;
+        public int count = 0;
         private void button2_Click(object sender, EventArgs e)
         {
             var lblnew = new Label
             {
                 Location = new Point(500, position),
                 Text = button2.Text, //Text can be dynamically assigned e.g From some text box
+                Name = "createdLabel",
                 AutoSize = true,
                 BackColor = Color.LightGray,
-                Font = new Font("Microsoft JhengHei UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, (byte)0)
+                Font = new Font("Microsoft JhengHei UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, (byte)0),
             };
             //this refers to current form you can use your container according to requirement
             Controls.Add(lblnew);
             position = position + 30;
             price = price + 10;
+            count += 1;
             label1.Text = price.ToString() + "kr";
         }
 
@@ -42,6 +45,7 @@ namespace WindowsFormsApp1
             {
                 Location = new Point(500, position),
                 Text = button1.Text, //Text can be dynamically assigned e.g From some text box
+                Name = "createdLabel",
                 AutoSize = true,
                 BackColor = Color.LightGray,
                 Font = new Font("Microsoft JhengHei UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, (byte)0)
@@ -50,6 +54,19 @@ namespace WindowsFormsApp1
             Controls.Add(lblnew);
             position = position + 30;
             price = price + 10;
+            count += 1;
+            label1.Text = price.ToString() + "kr";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < count; i++)
+            { 
+                var labelToRemove = this.Controls["createdLabel"];
+                this.Controls.Remove(labelToRemove);
+            }
+            price = 0;
+            position = 100;
             label1.Text = price.ToString() + "kr";
         }
     }
