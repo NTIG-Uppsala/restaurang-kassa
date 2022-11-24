@@ -19,6 +19,6 @@ jobs:
       - name: Install dependencies
         run: dotnet restore '.\WindowsFormsApp1\WindowsFormsApp1.sln'
       - name: Build
-        run: dotnet build '.\WindowsFormsApp1\WindowsFormsApp1.sln' --configuration
+        run: dotnet build '.\WindowsFormsApp1\WindowsFormsApp1.sln' --configuration Release
       - name: Test
         run: dotnet test '.\WindowsFormsApp1\WindowsFormsApp1.sln' --no-restore --verbosity normal
