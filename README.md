@@ -1,7 +1,7 @@
 # Development enviroment<br>
 
 ## IDE<br>
-VS Code
+Visual Studio
 
 ## Languages<br>
 C#
