@@ -6787,23 +6787,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\axel.schnurer\\.nuget\\packages\\": {},
+    "C:\\Users\\Nikole\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\axel.schnurer\\Documents\\GitHub\\restaurang-kassa\\WindowsFormsApp1\\TestProject\\TestProject.csproj",
+      "projectUniqueName": "C:\\Users\\Nikole\\Documents\\GitHub\\restaurang-kassa\\WindowsFormsApp1\\TestProject\\TestProject.csproj",
       "projectName": "TestProject",
-      "projectPath": "C:\\Users\\axel.schnurer\\Documents\\GitHub\\restaurang-kassa\\WindowsFormsApp1\\TestProject\\TestProject.csproj",
-      "packagesPath": "C:\\Users\\axel.schnurer\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\axel.schnurer\\Documents\\GitHub\\restaurang-kassa\\WindowsFormsApp1\\TestProject\\obj\\",
+      "projectPath": "C:\\Users\\Nikole\\Documents\\GitHub\\restaurang-kassa\\WindowsFormsApp1\\TestProject\\TestProject.csproj",
+      "packagesPath": "C:\\Users\\Nikole\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Nikole\\Documents\\GitHub\\restaurang-kassa\\WindowsFormsApp1\\TestProject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\axel.schnurer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Nikole\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -6819,8 +6819,8 @@
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
           "projectReferences": {
-            "C:\\Users\\axel.schnurer\\Documents\\GitHub\\restaurang-kassa\\WindowsFormsApp1\\WindowsFormsApp1\\WindowsFormsApp1.csproj": {
-              "projectPath": "C:\\Users\\axel.schnurer\\Documents\\GitHub\\restaurang-kassa\\WindowsFormsApp1\\WindowsFormsApp1\\WindowsFormsApp1.csproj"
+            "C:\\Users\\Nikole\\Documents\\GitHub\\restaurang-kassa\\WindowsFormsApp1\\WindowsFormsApp1\\WindowsFormsApp1.csproj": {
+              "projectPath": "C:\\Users\\Nikole\\Documents\\GitHub\\restaurang-kassa\\WindowsFormsApp1\\WindowsFormsApp1\\WindowsFormsApp1.csproj"
             }
           }
         }
