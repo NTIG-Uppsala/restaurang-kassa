@@ -1,19 +1,24 @@
-
-name: .NET
+name: dotnet package
 
 on: [push]
 
 jobs:
   build:
+
     runs-on: windows-latest
+    strategy:
+      matrix:
+        dotnet-version: ['7.0' ]
 
     steps:
       - uses: actions/checkout@v3
-      - name: Setup .NET
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.x
-      - name: Restore dependencies
-        run: dotnet restore TestProject/UnitTest1
-      - name: Run Test
-        run: dotnet test --verbosity normal TestProject/UnitTest1
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore '.\WindowsFormsApp1\WindowsFormsApp1.sln'
+      - name: Build
+        run: dotnet build '.\WindowsFormsApp1\WindowsFormsApp1.sln' --configuration Release --no-restore
+      - name: Test
+        run: dotnet test '.\WindowsFormsApp1\WindowsFormsApp1.sln' --no-restore --verbosity normal
