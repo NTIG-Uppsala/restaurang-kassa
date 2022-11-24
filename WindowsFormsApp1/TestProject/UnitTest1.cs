@@ -11,9 +11,9 @@ namespace TestProject
         [TestMethod]
         public void TestMethod1()
         {
-            var bruh = new WindowsFormsApp1.Form1().position;
-            Assert.AreEqual(bruh, 100);
-            Console.WriteLine(bruh);
+            var position = new WindowsFormsApp1.Form1().position;
+            Assert.AreEqual(position, 100);
+            Console.WriteLine(position);
         }
     }
 }
