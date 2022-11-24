@@ -6772,23 +6772,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Nikole\\.nuget\\packages\\": {},
+    "C:\\Users\\axel.schnurer\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nikole\\Documents\\GitHub\\restaurang-kassa\\TestProject1\\TestProject1\\TestProject1.csproj",
+      "projectUniqueName": "C:\\Users\\axel.schnurer\\Documents\\GitHub\\restaurang-kassa\\TestProject1\\TestProject1\\TestProject1.csproj",
       "projectName": "TestProject1",
-      "projectPath": "C:\\Users\\Nikole\\Documents\\GitHub\\restaurang-kassa\\TestProject1\\TestProject1\\TestProject1.csproj",
-      "packagesPath": "C:\\Users\\Nikole\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nikole\\Documents\\GitHub\\restaurang-kassa\\TestProject1\\TestProject1\\obj\\",
+      "projectPath": "C:\\Users\\axel.schnurer\\Documents\\GitHub\\restaurang-kassa\\TestProject1\\TestProject1\\TestProject1.csproj",
+      "packagesPath": "C:\\Users\\axel.schnurer\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\axel.schnurer\\Documents\\GitHub\\restaurang-kassa\\TestProject1\\TestProject1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Nikole\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\axel.schnurer\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

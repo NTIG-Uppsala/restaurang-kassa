@@ -20,7 +20,8 @@ namespace WindowsFormsApp1
         public int position = 100;
         public int price = 0;
         public int count = 0;
-        private void button2_Click(object sender, EventArgs e)
+
+        public void button2_Click(object sender, EventArgs e)
         {
             var lblnew = new Label
             {
@@ -40,7 +41,7 @@ namespace WindowsFormsApp1
             listBox1.Items.Add(button2.Text);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
             var lblnew = new Label
             {
@@ -60,7 +61,7 @@ namespace WindowsFormsApp1
             listBox1.Items.Add(button1.Text);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        public void button3_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < count; i++)
             { 
@@ -74,7 +75,7 @@ namespace WindowsFormsApp1
             listBox1.Items.Clear();
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        public void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
