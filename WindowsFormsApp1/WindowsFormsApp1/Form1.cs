@@ -32,11 +32,12 @@ namespace WindowsFormsApp1
                 Font = new Font("Microsoft JhengHei UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, (byte)0),
             };
             //this refers to current form you can use your container according to requirement
-            Controls.Add(lblnew);
+            // Controls.Add(lblnew);
             position = position + 30;
             price = price + 10;
             count += 1;
             label1.Text = price.ToString() + "kr";
+            listBox1.Items.Add(button2.Text);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -51,11 +52,12 @@ namespace WindowsFormsApp1
                 Font = new Font("Microsoft JhengHei UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, (byte)0)
             };
             //this refers to current form you can use your container according to requirement
-            Controls.Add(lblnew);
+            // Controls.Add(lblnew);
             position = position + 30;
             price = price + 10;
             count += 1;
             label1.Text = price.ToString() + "kr";
+            listBox1.Items.Add(button1.Text);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -69,6 +71,12 @@ namespace WindowsFormsApp1
             price = 0;
             position = 100;
             label1.Text = price.ToString() + "kr";
+            listBox1.Items.Clear();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
