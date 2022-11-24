@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         dotnet-version: ['7.0' ]
@@ -17,8 +17,8 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
-        run: dotnet restore '.\WindowsFormsApp1\WindowsFormsApp1.sln'
+        run: dotnet restore './WindowsFormsApp1/WindowsFormsApp1.sln'
       - name: Build
-        run: dotnet build '.\WindowsFormsApp1\WindowsFormsApp1.sln' --configuration Release --no-restore
+        run: dotnet build './WindowsFormsApp1/WindowsFormsApp1.sln' --configuration Release --no-restore
       - name: Test
-        run: dotnet test '.\WindowsFormsApp1\WindowsFormsApp1.sln' --no-restore --verbosity normal
+        run: dotnet test './WindowsFormsApp1/WindowsFormsApp1.sln' --no-restore --verbosity normal
