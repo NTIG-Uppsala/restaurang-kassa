@@ -3,6 +3,9 @@
 ## IDE<br>
 [Visual Studio](https://learn.microsoft.com/en-us/visualstudio/windows/?view=vs-2022)
 
+### Workloads
+[.Net Multi-platform APP UI Development](https://dotnet.microsoft.com/en-us/apps/maui)
+
 ## Frameworks<br>
 [.Net 6.0](https://learn.microsoft.com/en-us/dotnet/fundamentals/)<br>
 [MAUI](https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-6.0)<br> 
