@@ -1,10 +1,19 @@
 # Development enviroment<br>
 
 ## IDE<br>
-Visual Studio
+[Visual Studio](https://learn.microsoft.com/en-us/visualstudio/windows/?view=vs-2022)
+
+## Frameworks<br>
+[.Net 6.0](https://learn.microsoft.com/en-us/dotnet/fundamentals/)<br>
+[Maui](https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-6.0)<br> 
+[NUnit](https://docs.nunit.org/index.html)
 
 ## Languages<br>
+XAML<br>
 C#
+
+## Coding Convention
+[Microsoft C# Coding Conventions](https://learn.microsoft.com/en-us/dotnet/csharp/)
 
 # DoD
 
