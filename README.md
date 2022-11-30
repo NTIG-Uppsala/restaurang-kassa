@@ -5,7 +5,7 @@
 
 ## Frameworks<br>
 [.Net 6.0](https://learn.microsoft.com/en-us/dotnet/fundamentals/)<br>
-[Maui](https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-6.0)<br> 
+[MAUI](https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-6.0)<br> 
 [NUnit](https://docs.nunit.org/index.html)
 
 ## Languages<br>
