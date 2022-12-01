@@ -1,5 +1,0 @@
-C:\Users\axel.schnurer\Documents\GitHub\restaurang-kassa\WindowsFormsApp1\TestProject1\obj\Debug\net7.0\TestProject1.csproj.AssemblyReference.cache
-C:\Users\axel.schnurer\Documents\GitHub\restaurang-kassa\WindowsFormsApp1\TestProject1\obj\Debug\net7.0\TestProject1.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\axel.schnurer\Documents\GitHub\restaurang-kassa\WindowsFormsApp1\TestProject1\obj\Debug\net7.0\TestProject1.AssemblyInfoInputs.cache
-C:\Users\axel.schnurer\Documents\GitHub\restaurang-kassa\WindowsFormsApp1\TestProject1\obj\Debug\net7.0\TestProject1.AssemblyInfo.cs
-C:\Users\axel.schnurer\Documents\GitHub\restaurang-kassa\WindowsFormsApp1\TestProject1\obj\Debug\net7.0\TestProject1.csproj.CoreCompileInputs.cache
