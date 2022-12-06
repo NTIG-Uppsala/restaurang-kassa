@@ -3,8 +3,9 @@
 public partial class MainPage : ContentPage
 {
 	public int count = 0;
+    public List<string> itemList = new List<string>();
 
-	public MainPage()
+    public MainPage()
 	{
 		InitializeComponent();
 	}
@@ -19,6 +20,10 @@ public partial class MainPage : ContentPage
 			CounterBtn.Text = $"Clicked {count} times";
 
 		SemanticScreenReader.Announce(CounterBtn.Text);
+	}
+	public void AddItem()
+	{ 
+		
 	}
 }
 
