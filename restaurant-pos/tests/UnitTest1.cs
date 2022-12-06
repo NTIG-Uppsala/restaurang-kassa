@@ -24,8 +24,10 @@ namespace tests
         {
             int listLength = _mainPage.itemList.Count;
             
-            _mainPage.AddItem();
-            
+            _mainPage.AddItem("Bulle");
+
+            TestContext.WriteLine(_mainPage.itemList[0]);
+
             Assert.That(_mainPage.itemList.Count, Is.EqualTo(listLength + 1));
         }
     }

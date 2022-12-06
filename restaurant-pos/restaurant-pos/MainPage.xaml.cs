@@ -21,9 +21,9 @@ public partial class MainPage : ContentPage
 
 		SemanticScreenReader.Announce(CounterBtn.Text);
 	}
-	public void AddItem()
-	{ 
-		
+	public void AddItem(object item)
+	{
+		itemList.Add(item.ToString());
 	}
 }
 
