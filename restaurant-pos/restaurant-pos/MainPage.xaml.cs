@@ -1,8 +1,10 @@
-﻿namespace restaurant_pos;
+﻿using System.Diagnostics;
+
+namespace restaurant_pos;
 
 public partial class MainPage : ContentPage
 {
-	public int count = 0;
+    public int count = 0;
     public List<string> itemList = new List<string>();
 
     public MainPage()
@@ -10,20 +12,17 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 	}
 
-	private void OnCounterClicked(object sender, EventArgs e)
+	public void AddItem(object item, EventArgs e)
 	{
-		count++;
-        
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
+		var finfintNamn = new Label
+		{
+			Text = item.ToString()
+		};
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
-	public void AddItem(object item)
-	{
-		itemList.Add(item.ToString());
+		parent.Add(finfintNamn);
+
+		itemList.Add("agga");
+		Debug.WriteLine("agga");
 	}
 }
 
