@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.Maui.Controls;
+using System.Diagnostics;
+using System.Xml;
 
 namespace restaurant_pos;
 
@@ -15,23 +17,22 @@ public partial class MainPage : ContentPage
 
 	public void AddItem(object sender, EventArgs e)
 	{
-        var flexLayout = new FlexLayout
+        var newItem = new Label
         {
-
+            Text = $"{(sender as Button).Text}: {(sender as Button).ClassId}kr",
+            FontSize = 32,
+            TextColor = Colors.White,
+            Margin = 10
         };
-
-		var newItem = new Label
-		{
-			Text = (sender as Button).Text
-		};
 
         var newItemPrice = new Label
         {
-            Text = (sender as Button).ClassId
+            Text = (sender as Button).ClassId,
+            FontSize = 32,
+            TextColor = Colors.White,
         };
 
-        flexLayout.Children.Add(newItem);
-        flexLayout.Children.Add(newItemPrice);
+        purchasedItems.Children.Add(newItem);
 
         float itemPrice = float.Parse(newItemPrice.Text);
         newItemPrice.Text += "kr";
@@ -41,5 +42,13 @@ public partial class MainPage : ContentPage
         count += 1;
         itemList.Add(newItem.Text);
     }
+
+    public void payItems(object sender, EventArgs e)
+    {
+        purchasedItems.Children.Clear();
+        totalPrice = 0;
+        Price.Text = $"{totalPrice}kr";
+    }
+
 }
 

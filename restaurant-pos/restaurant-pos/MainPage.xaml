@@ -4,34 +4,101 @@
              x:Class="restaurant_pos.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout
-            x:Name="parent"
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+        <Grid
+            BackgroundColor="White">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Kaffe"
-                ClassId="40"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="AddItem"
-                HorizontalOptions="Center" />
+            <VerticalStackLayout
+                Grid.Column="0"
+                x:Name="menuItems"
+                Spacing="25"
+                Padding="50,50"
+                HorizontalOptions="Start">
 
-            <Button
-                x:Name="CounterBtn2"
-                Text="Bulle"
-                ClassId="20"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="AddItem"
-                HorizontalOptions="Center" />
+                <Label
+                    FontSize="48"
+                    Margin="0, 25, 0, 0"
+                    TextColor="Black"
+                    Text="Dryck">
+                </Label>
+                
+                <Button
+                    x:Name="CounterBtn"
+                    Margin="0, 10, 0, 0"
+                    Text="Kaffe"
+                    ClassId="40"
+                    SemanticProperties.Hint="Counts the number of times you click"
+                    Clicked="AddItem"
+                    HorizontalOptions="Start" 
+                    TextColor="White"
+                    BackgroundColor="Black"/>
 
-            <Label
-                x:Name="Price"
-                HorizontalOptions="Center">
-            </Label>
+                <Label
+                    FontSize="48"
+                    Margin="0, 25, 0, 0"
+                    TextColor="Black"
+                    Text="Fikabröd">
+                </Label>
 
-        </VerticalStackLayout>
+                <Button
+                    x:Name="CounterBtn2"
+                    Margin="0, 10, 0, 0"
+                    Text="Bulle"
+                    ClassId="20"
+                    SemanticProperties.Hint="Counts the number of times you click"
+                    Clicked="AddItem"
+                    HorizontalOptions="Start" 
+                    TextColor="White"
+                    BackgroundColor="Black"/>
+
+            </VerticalStackLayout>
+
+            
+            <Grid
+                Grid.Column="1"
+                BackgroundColor="Black">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ScrollView
+                    Grid.Row="0">
+                    <VerticalStackLayout
+                        Padding="0, 25, 0, 0"
+                        x:Name="purchasedItems"
+                        HorizontalOptions="Center">
+                    </VerticalStackLayout>
+                </ScrollView>    
+                
+                    <VerticalStackLayout
+                        VerticalOptions="Center"
+                        Grid.Row="1">
+                        <Label
+                            Text="0kr"
+                            x:Name="Price"
+                            FontSize="32"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            TextColor="White">
+                        </Label>
+                        <Button
+                            Margin="25"
+                            WidthRequest="100"
+                            TextColor="Black"
+                            Text="Betala"
+                            Clicked="payItems">
+                        </Button>
+                    </VerticalStackLayout>
+
+             </Grid>
+            
+        </Grid>
     </ScrollView>
 
 </ContentPage>
