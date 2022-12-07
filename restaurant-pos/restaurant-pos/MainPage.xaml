@@ -13,6 +13,7 @@
             <Button
                 x:Name="CounterBtn"
                 Text="Kaffe"
+                ClassId="40"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="AddItem"
                 HorizontalOptions="Center" />
@@ -20,9 +21,15 @@
             <Button
                 x:Name="CounterBtn2"
                 Text="Bulle"
+                ClassId="20"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="AddItem"
                 HorizontalOptions="Center" />
+
+            <Label
+                x:Name="Price"
+                HorizontalOptions="Center">
+            </Label>
 
         </VerticalStackLayout>
     </ScrollView>
