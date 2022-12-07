@@ -12,7 +12,14 @@
 
             <Button
                 x:Name="CounterBtn"
-                Text="Click me"
+                Text="Kaffe"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="AddItem"
+                HorizontalOptions="Center" />
+
+            <Button
+                x:Name="CounterBtn2"
+                Text="Bulle"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="AddItem"
                 HorizontalOptions="Center" />

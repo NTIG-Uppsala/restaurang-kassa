@@ -12,17 +12,13 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 	}
 
-	public void AddItem(object item, EventArgs e)
+	public void AddItem(object sender, EventArgs e)
 	{
-		var finfintNamn = new Label
+		var newItem = new Label
 		{
-			Text = item.ToString()
+			Text = (sender as Button).Text
 		};
-
-		parent.Add(finfintNamn);
-
-		itemList.Add("agga");
-		Debug.WriteLine("agga");
-	}
+		parent.Add(newItem);
+    }
 }
 
