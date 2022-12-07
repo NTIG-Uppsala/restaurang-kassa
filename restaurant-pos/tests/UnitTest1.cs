@@ -23,10 +23,17 @@ namespace tests
         public void TestAddItem()
         {
             int listLength = _mainPage.itemList.Count;
-            
-            _mainPage.AddItem("Bulle");
 
-            TestContext.WriteLine(_mainPage.itemList[0]);
+            var button = new Button
+            {
+                Text = "Kaffe",
+                ClassId = "40",
+                Clicked = "AddItem"
+            };
+            
+            _mainPage.AddItem(button);
+
+            // TestContext.WriteLine(_mainPage.itemList[0]);
 
             Assert.That(_mainPage.itemList.Count, Is.EqualTo(listLength + 1));
         }

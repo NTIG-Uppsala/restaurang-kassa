@@ -4,7 +4,10 @@ namespace restaurant_pos;
 
 public partial class MainPage : ContentPage
 {
-    public float count = 0;
+    public int count = 0;
+    public float totalPrice = 0;
+    public List<string> itemList = new List<string>();
+
     public MainPage()
 	{
 		InitializeComponent();
@@ -12,25 +15,31 @@ public partial class MainPage : ContentPage
 
 	public void AddItem(object sender, EventArgs e)
 	{
+        var flexLayout = new FlexLayout
+        {
+
+        };
+
 		var newItem = new Label
 		{
 			Text = (sender as Button).Text
 		};
 
-        var newItem2 = new Label
+        var newItemPrice = new Label
         {
             Text = (sender as Button).ClassId
         };
 
-        parent.Add(newItem);
-        parent.Add(newItem2);
+        flexLayout.Children.Add(newItem);
+        flexLayout.Children.Add(newItemPrice);
 
+        float itemPrice = float.Parse(newItemPrice.Text);
+        newItemPrice.Text += "kr";
+        totalPrice += itemPrice;
+        Price.Text = $"{totalPrice}kr";
 
-        float priceVariable = float.Parse(newItem2.Text);
-        newItem2.Text += "kr";
-        count += priceVariable;
-        Price.Text = $"{count}kr";
-
+        count += 1;
+        itemList.Add(newItem.Text);
     }
 }
 
