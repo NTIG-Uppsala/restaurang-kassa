@@ -15,18 +15,27 @@
             }
             else if (option == "n")
             {
-                Console.WriteLine("Available commands: \n'l'");
-                Console.Write("Type 'h' for help.");
-                option = Console.ReadLine();
-                if (option == "l")
-                {
-                    var Cart = new Cart();
-                    Cart.ListContents();
-                }
+                var menu = new Menu();
+                menu.Start();
             }
             else
             {
                 Console.WriteLine("Not valid option {0}", option);
+            }
+        }
+    }
+
+    class Menu
+    {
+        public void Start()
+        {
+            string option;
+            Console.WriteLine("Available commands: \n'l'");
+            option = Console.ReadLine();
+            if (option == "l")
+            {
+                var Cart = new Cart();
+                Cart.ListContents();
             }
         }
     }
