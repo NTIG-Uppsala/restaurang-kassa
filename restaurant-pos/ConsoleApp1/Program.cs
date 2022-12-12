@@ -1,27 +1,33 @@
-﻿using System;
-using System.Numerics;
-using System.Runtime.InteropServices;
-
-namespace Backend
+﻿namespace Backend
 {
     class Application
     {
         public static void Main(string[] args)
         {
-            string testString;
-            Console.Write("Enter a string - ");
-            testString = Console.ReadLine();
-            if (testString == "a")
+            string option;
+            Console.Write("Run Tests? (y/n)");
+            option = Console.ReadLine();
+            if (option == "y")
             {
-                Console.WriteLine("You selected option {0}", testString);
+                var Test = new Tests();
+                Test.TestCart();
+                Console.WriteLine("Tests complete.");
+            }
+            else if (option == "n")
+            {
+                Console.WriteLine("Available commands: \n'l'");
+                Console.Write("Type 'h' for help.");
+                option = Console.ReadLine();
+                if (option == "l")
+                {
+                    var Cart = new Cart();
+                    Cart.ListContents();
+                }
             }
             else
             {
-                Console.WriteLine("You entered '{0}'", testString);
+                Console.WriteLine("Not valid option {0}", option);
             }
-
-            var Test = new Tests();
-            Test.TestCart();
         }
     }
 
@@ -30,6 +36,7 @@ namespace Backend
         public string ListContents()
         {
             string testString = "agga";
+            Console.WriteLine("this is the list");
             return testString;
         }
     }
@@ -63,7 +70,6 @@ namespace Backend
         public void TestCart()
         {
             var Test = new Cart(); 
-            Test.ListContents();
             Console.WriteLine(Test.ListContents());
         }
     }
