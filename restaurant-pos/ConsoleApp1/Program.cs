@@ -17,7 +17,42 @@ namespace Backend
             {
                 Console.WriteLine("You entered '{0}'", testString);
             }
+            
+        }
+    }
+
+    class Cart
+    {
+        public void ListContents()
+        {
 
         }
     }
-}
+
+    class Checkout
+    {
+        public void Pay()
+        {
+
+        }
+    }
+
+    class Coffee
+    {
+        public void AddCoffee() 
+        {
+        
+        }
+    }
+
+
+    class Buns
+    {
+        public void AddBun()
+        {
+
+        }
+    }
+
+
+}   
