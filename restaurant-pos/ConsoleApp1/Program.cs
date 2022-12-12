@@ -19,15 +19,18 @@ namespace Backend
             {
                 Console.WriteLine("You entered '{0}'", testString);
             }
-            
+
+            var Test = new Tests();
+            Test.TestCart();
         }
     }
 
     class Cart
     {
-        public void ListContents()
+        public string ListContents()
         {
-
+            string testString = "agga";
+            return testString;
         }
     }
 
@@ -59,7 +62,9 @@ namespace Backend
     {
         public void TestCart()
         {
-         
+            var Test = new Cart(); 
+            Test.ListContents();
+            Console.WriteLine(Test.ListContents());
         }
     }
-}   
+}
