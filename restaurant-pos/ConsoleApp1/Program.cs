@@ -12,7 +12,7 @@
                 var TestCart = new Tests();
                 TestCart.TestCart();
                 var TestCoffe = new Tests();
-                TestCoffe.TestCoffe();
+                TestCoffe.TestCoffee();
                 Console.WriteLine("Tests complete.");
             }
             else if (option == "n")
@@ -32,7 +32,7 @@
         public void Start()
         {
             string option;
-            Console.WriteLine("Available commands: \n'l'");
+            Console.WriteLine("Available commands: \n'l', 'Add coffee");
             option = Console.ReadLine();
             if (option == "l")
             {
@@ -42,13 +42,27 @@
                     Console.WriteLine(item);
                 }
             }
+            else if (option == "Add coffee")
+            {
+                Console.WriteLine("Coffe added");
+                var Coffee = new Coffee();
+                Coffee.AddCoffee();
+                var Cart = new Cart();
+                foreach (string item in Cart.ListContents())
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Not valid option {0}", option);
+            }
         }
     }
 
     class Cart
     {
         public List<string> itemList = new List<string>();
-
         public List<string> ListContents()
         {
             return itemList;
@@ -67,7 +81,9 @@
     {
         public void AddCoffee() 
         {
-        
+            //it won't add Coffee
+            var Cart = new Cart();
+            Cart.itemList.Add("Coffee");
         }
     }
 
@@ -103,26 +119,26 @@
             }
         }
 
-        public void TestCoffe()
+        public void TestCoffee()
         {
             // To make sure the list is empty
             var CartTest = new Cart();
+            var CoffeeTest = new Coffee();
             if (CartTest.itemList.Count == 0)
             {
-                var CoffeTest = new Coffee();
-                CoffeTest.AddCoffee();
+                CoffeeTest.AddCoffee();
                 if (CartTest.itemList[0] == "Coffee")
                 {
-                    Console.WriteLine("TestCoffe succeeded");
+                    Console.WriteLine("TestCoffee succeeded");
                 }
                 else
                 {
-                    Console.WriteLine("TestCoffe failed, 'Coffe' not added");
+                    Console.WriteLine("TestCoffee failed, 'Coffee' not added");
                 }
             }
             else
             {
-                Console.WriteLine("TestCoffe failed, 'itemList' not empty");
+                Console.WriteLine("TestCoffee failed, 'itemList' not empty");
             }
         }
     }
