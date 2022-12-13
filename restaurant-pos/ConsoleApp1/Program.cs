@@ -42,11 +42,11 @@
 
     class Cart
     {
-        public string ListContents()
+        public List<string> itemList = new List<string>();
+
+        public List<string> ListContents()
         {
-            string testString = "agga";
-            Console.WriteLine("this is the list");
-            return testString;
+            return itemList;
         }
     }
 
@@ -78,8 +78,24 @@
     {
         public void TestCart()
         {
-            var Test = new Cart(); 
-            Console.WriteLine(Test.ListContents());
+            var CartTest = new Cart();
+            if (CartTest.itemList.Count == 0)
+            {
+                CartTest.itemList.Add("Coffee");
+                if (CartTest.itemList[0] == "Coffee")
+                {
+                    Console.WriteLine("TestCart succeeded");
+                }
+                else
+                {
+                    Console.WriteLine("TestCart failed to return expected value");
+                    Console.WriteLine("itemList.ToString() = {0}", CartTest.ListContents().ToString());
+                }
+            }
+            else
+            {
+                Console.WriteLine("TestCart failed, itemList did not start empty");
+            }
         }
     }
 }
