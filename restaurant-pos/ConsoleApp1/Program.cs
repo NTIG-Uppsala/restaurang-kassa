@@ -9,8 +9,10 @@
             option = Console.ReadLine();
             if (option == "y")
             {
-                var Test = new Tests();
-                Test.TestCart();
+                var TestCart = new Tests();
+                TestCart.TestCart();
+                var TestCoffe = new Tests();
+                TestCoffe.TestCoffe();
                 Console.WriteLine("Tests complete.");
             }
             else if (option == "n")
@@ -35,7 +37,10 @@
             if (option == "l")
             {
                 var Cart = new Cart();
-                Cart.ListContents();
+                foreach (string item in Cart.ListContents())
+                {
+                    Console.WriteLine(item);
+                }
             }
         }
     }
@@ -95,6 +100,29 @@
             else
             {
                 Console.WriteLine("TestCart failed, itemList did not start empty");
+            }
+        }
+
+        public void TestCoffe()
+        {
+            // To make sure the list is empty
+            var CartTest = new Cart();
+            if (CartTest.itemList.Count == 0)
+            {
+                var CoffeTest = new Coffee();
+                CoffeTest.AddCoffee();
+                if (CartTest.itemList[0] == "Coffee")
+                {
+                    Console.WriteLine("TestCoffe succeeded");
+                }
+                else
+                {
+                    Console.WriteLine("TestCoffe failed, 'Coffe' not added");
+                }
+            }
+            else
+            {
+                Console.WriteLine("TestCoffe failed, 'itemList' not empty");
             }
         }
     }
