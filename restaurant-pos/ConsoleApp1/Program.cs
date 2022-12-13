@@ -1,30 +1,61 @@
 ﻿namespace Backend
 {
-    public class Application
+    class Application
     {
-        public static void Main()
-        {
-            Cart shoppingCart = new Cart();
-            Menu.Start(shoppingCart);
-        }
-
-        public static void OldMain(string[] args)
+        public static void Main(string[] args)
         {
             string option;
+            var Cart = new Cart();
+
             Console.Write("Run Tests? (y/n)");
             option = Console.ReadLine();
             if (option == "y")
             {
-                var TestCart = new Tests();
-                TestCart.TestCart();
-                var TestCoffe = new Tests();
-                TestCoffe.TestCoffee();
+                if (Cart.itemList.Count == 0)
+                {
+                    Cart.itemList.Add("Coffee");
+                    if (Cart.itemList[0] == "Coffee")
+                    {
+                        Console.WriteLine("TestCoffee succeeded");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Coffee test failed, 'Coffee' not added");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Coffee test failed, 'itemList' not empty");
+                }
                 Console.WriteLine("Tests complete.");
             }
             else if (option == "n")
             {
-                var menu = new Menu();
-                menu.Start();
+                string option2;
+                Console.WriteLine("Available commands: \n'l', 'Add coffee");
+                option2 = Console.ReadLine();
+                if (option2 == "l")
+                {
+
+                    foreach (string item in Cart.ListContents())
+                    {
+                        Console.WriteLine(item);
+                    }
+                }
+                else if (option2 == "Add coffee")
+                {
+                    Cart.itemList.Add("Coffee");
+                    Console.WriteLine("Coffe added");
+
+                    foreach (string item in Cart.ListContents())
+                    {
+                        Console.WriteLine(item);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Not valid option {0}", option2);
+                }
             }
             else
             {
@@ -33,79 +64,64 @@
         }
     }
 
-    public class Menu
-
+    class Menu
     {
-        
-        
-        public static void Start(Cart shoppingCart)
+        public void Start()
         {
-            string option;
-            Console.WriteLine("Available commands: \n'l', 'Add coffee");
-            option = Console.ReadLine();
-            if (option == "l")
-            {
-                foreach (string item in shoppingCart.ListContents())
-                {
-                    Console.WriteLine(item);
-                }
-            }
-            else if (option == "Add coffee")
-            {
-                Console.WriteLine("Coffe added");
-                shoppingCart.AddCoffee();
-                foreach (string item in shoppingCart.ListContents())
-                {
-                    Console.WriteLine(item);
-                }
-            }
-            else
-            {
-                Console.WriteLine("Not valid option {0}", option);
-            }
+
         }
     }
 
-    public class Cart
+    class Cart
     {
         public List<string> itemList = new List<string>();
         public List<string> ListContents()
         {
             return itemList;
         }
+    }
 
-        public void AddCoffee()
-        {
-            //it won't add Coffee
-            itemList.Add("Coffee");
-        }
-
-        public void AddBun()
-        {
-            
-        }
-
+    class Checkout
+    {
         public void Pay()
         {
 
         }
-    }  
+    }
 
-    public class Tests
+    class Coffee
+    {
+        public void AddCoffee()
+        {
+            //it dosn't add Coffee ha ha :D
+
+        }
+    }
+
+    class Buns
+    {
+        public void AddBun()
+        {
+
+        }
+    }
+
+    class Tests
     {
         public void TestCart()
         {
-            if (shoppingCart.itemList.Count == 0)
+            var CartTest = new Cart();
+            if (CartTest.itemList.Count == 0)
             {
-                shoppingCart.itemList.Add("Coffee");
-                if (shoppingCart.itemList[0] == "Coffee")
+                CartTest.itemList.Add("Coffee");
+                if (CartTest.itemList[0] == "Coffee")
                 {
                     Console.WriteLine("TestCart succeeded");
                 }
                 else
                 {
                     Console.WriteLine("TestCart failed to return expected value");
-                    Console.WriteLine("itemList.ToString() = {0}", shoppingCart.ListContents().ToString());
+                    Console.WriteLine("itemList.ToString() = {0}", CartTest.ListContents().ToString());
                 }
             }
             else
@@ -117,22 +133,9 @@
         public void TestCoffee()
         {
             // To make sure the list is empty
-            if (shoppingCart.itemList.Count == 0)
-            {
-                shoppingCart.AddCoffee();
-                if (shoppingCart.itemList[0] == "Coffee")
-                {
-                    Console.WriteLine("TestCoffee succeeded");
-                }
-                else
-                {
-                    Console.WriteLine("TestCoffee failed, 'Coffee' not added");
-                }
-            }
-            else
-            {
-                Console.WriteLine("TestCoffee failed, 'itemList' not empty");
-            }
+            var CartTest = new Cart();
+            var CoffeeTest = new Coffee();
+
         }
     }
 }
