@@ -6,22 +6,21 @@
         {
             string option;
             var Cart = new Cart();
-            // comment added
             Console.Write("Run Tests? (y/n)");
             option = Console.ReadLine();
             if (option == "y")
             {
-                Console.WriteLine("Running TESTS...");
+                Console.WriteLine("Running tests...");
                 // Testing Cart gives an empty list
                 if (Cart.itemList.Count == 0)
                 {
                     // Test to add "Coffee"
-                    Cart.AddItem("Coffee", 15);
+                    Cart.AddItem("Coffee", 15, true);
                     if (Cart.itemList[0] == "Coffee")
                     {
                         Console.WriteLine("TestCoffee succeeded");
                         // Test to add "Bun"
-                        Cart.AddItem("Bun", 150);
+                        Cart.AddItem("Bun", 150, true);
                         if (Cart.itemList[1] == "Bun")
                         {
                             Console.WriteLine("TestBun succeeded");
@@ -57,7 +56,7 @@
                 {
                     Console.WriteLine("Coffee test failed, 'itemList' not empty");
                 }
-                Console.WriteLine("Tests complete.");
+                Console.WriteLine("Tests complete");
             }
             // comment added
             else if (option == "n")
@@ -65,7 +64,7 @@
                 bool programLoop = true;
                 while (programLoop)
                 {
-                    Console.WriteLine("\nAvailable commands: \n'l', 'a', 'x'");
+                    Console.WriteLine("\nAvailable commands: \n'a', 'l', 'p', 'x'");
                     option = Console.ReadLine();
                     if (option == "l")
                     {
@@ -74,6 +73,23 @@
                         {
                             Console.WriteLine(item);
                         }
+                        Console.WriteLine("Total price: {0}", Cart.totalPrice);
+                    }
+                    else if (option == "p")
+                    {
+                        Console.WriteLine("\nPrice to pay: {0}", Cart.totalPrice);
+                        Console.WriteLine("Pay and clear cart? (y/n)");
+                        option = Console.ReadLine();
+                        
+                        if (option == "y")
+                        {
+                            Cart.Pay();
+                            Console.WriteLine("Price has been paid.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Aborting payment process...");
+                        }
                     }
                     else if (option == "a")
                     {
@@ -81,7 +97,7 @@
                         option = Console.ReadLine();
                         if (option == "Coffee")
                         {
-                            Cart.AddItem("Coffee", 15);
+                            Cart.AddItem("Coffee", 15, false);
                             // Goes through each item in the function Cart.ListContents()
                             // and that function returns a list
                             foreach (string item in Cart.ListContents())
@@ -91,7 +107,7 @@
                         }
                         else if (option == "Bun")
                         {
-                            Cart.AddItem("Bun", 150);
+                            Cart.AddItem("Bun", 150, false);
                             // Goes through each item in the function Cart.ListContents()
                             // and that function returns a list
                             foreach (string item in Cart.ListContents())
@@ -126,10 +142,11 @@
     {
         public List<string> itemList = new List<string>();
         public float totalPrice = 0;
-        public void AddItem(string item, float price) 
+        public void AddItem(string item, float price, bool testing) 
         {
             itemList.Add(item);
             totalPrice += price;
+            if (!testing) 
             Console.WriteLine("item: {0}, price: {1}", item, price);
         }
 
@@ -142,7 +159,8 @@
             }
             else
             {
-                Console.WriteLine("Printing contents of cart...");
+                Console.WriteLine("\nPrinting contents of cart...");
+                
                 return itemList;
             }
         }
@@ -152,37 +170,6 @@
             float tempPrice = totalPrice;
             totalPrice = 0;
             return tempPrice;
-        }
-    }
-
-    class Tests
-    {
-        public void TestCart()
-        {
-            var CartTest = new Cart();
-            if (CartTest.itemList.Count == 0)
-            {
-                CartTest.itemList.Add("Coffee");
-                if (CartTest.itemList[0] == "Coffee")
-                {
-                    Console.WriteLine("TestCart succeeded");
-                }
-                else
-                {
-                    Console.WriteLine("TestCart failed to return expected value");
-                    Console.WriteLine("itemList.ToString() = {0}", CartTest.ListContents().ToString());
-                }
-            }
-            else
-            {
-                Console.WriteLine("TestCart failed, itemList did not start empty");
-            }
-        }
-
-        public void TestCoffee()
-        {
-            var CartTest = new Cart();
-
         }
     }
 }
