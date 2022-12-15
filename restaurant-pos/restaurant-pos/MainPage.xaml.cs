@@ -9,13 +9,14 @@ public partial class MainPage : ContentPage
 
     public float totalPrice = 0;
 
-    public bool testing = false;
+    public bool testing = true;
     public MainPage()
     {
         InitializeComponent();
 
         if (testing)
         {
+            Debug.WriteLine("-------------");
             AddItemTest();
         }
 

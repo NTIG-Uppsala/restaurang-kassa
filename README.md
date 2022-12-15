@@ -9,11 +9,14 @@
 ## Frameworks<br>
 [.Net 6.0](https://learn.microsoft.com/en-us/dotnet/fundamentals/)<br>
 [MAUI](https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-6.0)<br> 
-[NUnit](https://docs.nunit.org/index.html)
 
 ## Languages<br>
 XAML<br>
 C#
+
+## Running Tests<br>
+In order to view test results: In Visual Studio go to `Debug -> Options -> General` and enable the setting `Redirect all Output Window text to the Immediate Window`<br>
+To run the tests: Change the `testing` variable in the `MainPage()` method from `false` to `true`<br>
 
 ## Coding Convention
 [Microsoft C# Coding Conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
