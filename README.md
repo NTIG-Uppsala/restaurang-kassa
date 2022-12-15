@@ -15,8 +15,7 @@ XAML<br>
 C#
 
 ## Running Tests<br>
-In order to view test results: In Visual Studio go to `Debug -> Options -> General` and enable the setting `Redirect all Output Window text to the Immediate Window`<br>
-To run the tests: Change the `testing` variable in the `MainPage()` method from `false` to `true`<br>
+To run tests: Change the `testing` variable in the `MainPage()` method from `false` to `true` and run the program.<br>
 
 ## Coding Convention
 [Microsoft C# Coding Conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)

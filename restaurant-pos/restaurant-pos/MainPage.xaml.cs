@@ -22,6 +22,7 @@ public partial class MainPage : ContentPage
             AddItemTest();
             PricingTest();
             PayItemsTest();
+            Debug.WriteLine("-------------");
         }
 
     }
