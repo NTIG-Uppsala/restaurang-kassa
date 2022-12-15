@@ -11,7 +11,7 @@ public partial class MainPage : ContentPage
     
     public float totalPrice = 0;
 
-    public bool testing = true;
+    public bool testing = false;
     public MainPage()
     {
         InitializeComponent();
