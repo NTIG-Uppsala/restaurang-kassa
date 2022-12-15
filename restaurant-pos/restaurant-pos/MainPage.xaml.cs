@@ -1,12 +1,14 @@
 ﻿using Microsoft.Maui.Controls;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
+using System.Reflection;
 using System.Xml;
 
 namespace restaurant_pos;
 
 public partial class MainPage : ContentPage
 {
-
+    
     public float totalPrice = 0;
 
     public bool testing = true;
@@ -18,6 +20,8 @@ public partial class MainPage : ContentPage
         {
             Debug.WriteLine("-------------");
             AddItemTest();
+            PricingTest();
+            PayItemsTest();
         }
 
     }
@@ -30,7 +34,6 @@ public partial class MainPage : ContentPage
         var items = new Dictionary<string, (string, int)>(){
             {"Kaffe", ("Kaffe", 40)},
             {"Bulle", ("Bulle", 20)},
-            {"Apelsinjuice", ("Apelsinjuice", 15)}
         };
 
         var clickedButton = sender as Button;
@@ -60,23 +63,78 @@ public partial class MainPage : ContentPage
     }
 
     // Tests
-    // Test to add item
 
+    // Test to add all items
     public void AddItemTest()
     {
+
+        var items = new Dictionary<string, (string, int)>(){
+            {"Kaffe", ("Kaffe", 40)},
+            {"Bulle", ("Bulle", 20)},
+        };
+
+        int counter = 1;
+
+        foreach (var item in items)
+        {
+            Button b = this.FindByName<Button>($"CounterBtn{counter}");
+            b.SendClicked();
+            counter += 1;    
+        }
+
         var itemLength = purchasedItems.Children.Count;
 
-        Button b = this.FindByName<Button>("CounterBtn");
-        b.SendClicked();
-
-        if (purchasedItems.Count > itemLength)
+        if (itemLength == items.Count)
         {
-            Debug.WriteLine("Pass");
+            Debug.WriteLine("Add Item Test: Passed");
         }
         else
         {
-            Debug.WriteLine("Fail");
+            throw new Exception("Add Item Test failed");
+        }
+    }
+
+    // Test to check if price is correct
+    public void PricingTest()
+    {
+        var items = new Dictionary<string, (string, int)>(){
+            {"Kaffe", ("Kaffe", 40)},
+            {"Bulle", ("Bulle", 20)},
+        };
+
+        var price = 0;
+
+        foreach (var item in items)
+        {
+            price += item.Value.Item2;
+        }
+
+        if (totalPrice == price)
+        {
+            Debug.WriteLine("Pricing Test: Passed");
+        }
+        else
+        {
+            throw new Exception("Pricing Test failed");
+        }
+    }
+
+    // Test to check if pay function works
+
+    public void PayItemsTest()
+    {
+        Button b = this.FindByName<Button>("payButton");
+        b.SendClicked();
+
+        if (totalPrice == 0 && purchasedItems.Children.Count == 0)
+        {
+            Debug.WriteLine("Pay Items Test: Passed");
+        }
+        else
+        {
+            throw new Exception("Pricing Test failed");
         }
 
     }
+
 }
