@@ -23,16 +23,15 @@
                     FontSize="48"
                     Margin="0, 25, 0, 0"
                     TextColor="Black"
-                    Text="Dryck">
+                    Text="Drink">
                 </Label>
-                
+
                 <Button
                     x:Name="CounterBtn"
                     Margin="0, 10, 0, 0"
-                    Text="Kaffe"
+                    Text="Coffee"
                     ClassId="40"
-                    SemanticProperties.Hint="Counts the number of times you click"
-                    Clicked="AddItem"
+                    Clicked="AddCoffee"
                     HorizontalOptions="Start" 
                     TextColor="White"
                     BackgroundColor="Black"/>
@@ -41,16 +40,15 @@
                     FontSize="48"
                     Margin="0, 25, 0, 0"
                     TextColor="Black"
-                    Text="Fikabröd">
+                    Text="Pastry">
                 </Label>
 
                 <Button
                     x:Name="CounterBtn2"
                     Margin="0, 10, 0, 0"
-                    Text="Bulle"
+                    Text="Bun"
                     ClassId="20"
-                    SemanticProperties.Hint="Counts the number of times you click"
-                    Clicked="AddItem"
+                    Clicked="AddBun"
                     HorizontalOptions="Start" 
                     TextColor="White"
                     BackgroundColor="Black"/>
@@ -91,8 +89,8 @@
                             Margin="25"
                             WidthRequest="100"
                             TextColor="Black"
-                            Text="Betala"
-                            Clicked="payItems">
+                            Clicked="Pay"
+                            Text="Pay">
                         </Button>
                     </VerticalStackLayout>
 

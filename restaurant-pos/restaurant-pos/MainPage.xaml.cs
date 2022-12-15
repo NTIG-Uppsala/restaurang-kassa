@@ -1,54 +1,41 @@
-﻿using Microsoft.Maui.Controls;
-using System.Diagnostics;
-using System.Xml;
-
-namespace restaurant_pos;
+﻿namespace restaurant_pos;
 
 public partial class MainPage : ContentPage
 {
-    public int count = 0;
-    public float totalPrice = 0;
-    public List<string> itemList = new List<string>();
-
     public MainPage()
-	{
-		InitializeComponent();
-	}
-
-	public void AddItem(object sender, EventArgs e)
-	{
+    {
+        InitializeComponent();
+    }
+    
+    public float totalPrice = 0;
+    public void AddItem(string item, float price, bool testing)
+    {
+        totalPrice += price;
         var newItem = new Label
         {
-            Text = $"{(sender as Button).Text}: {(sender as Button).ClassId}kr",
+            Text = $"{item}: {price}kr",
             FontSize = 32,
             TextColor = Colors.White,
             Margin = 10
         };
-
-        var newItemPrice = new Label
-        {
-            Text = (sender as Button).ClassId,
-            FontSize = 32,
-            TextColor = Colors.White,
-        };
-
         purchasedItems.Children.Add(newItem);
-
-        float itemPrice = float.Parse(newItemPrice.Text);
-        newItemPrice.Text += "kr";
-        totalPrice += itemPrice;
         Price.Text = $"{totalPrice}kr";
-
-        count += 1;
-        itemList.Add(newItem.Text);
     }
-
-    public void payItems(object sender, EventArgs e)
+    public void Pay(object sender, EventArgs e)
     {
-        purchasedItems.Children.Clear();
         totalPrice = 0;
         Price.Text = $"{totalPrice}kr";
+        purchasedItems.Children.Clear();
     }
 
+    public void AddCoffee(object sender, EventArgs e)
+    {
+        // Price is up for discussion
+        AddItem("Coffee", 15, false);
+    }
+    public void AddBun(object sender, EventArgs e)
+    {
+        // Price is up for discussion
+        AddItem("Bun", 30, false);
+    }
 }
-
