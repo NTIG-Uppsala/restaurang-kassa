@@ -22,16 +22,11 @@ namespace tests
         [Test]
         public void TestAddItem()
         {
+            var xamlFilePath = "../restaurant-pos/MainPage.xaml";
+
             int listLength = _mainPage.itemList.Count;
 
-            var button = new Button
-            {
-                Text = "Kaffe",
-                ClassId = "40",
-                Clicked = "AddItem"
-            };
-            
-            _mainPage.AddItem(button);
+            _mainPage.AddItem();
 
             // TestContext.WriteLine(_mainPage.itemList[0]);
 

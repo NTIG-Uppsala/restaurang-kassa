@@ -1,41 +1,81 @@
-﻿namespace restaurant_pos;
+﻿using Microsoft.Maui.Controls;
+using System.Diagnostics;
+using System.Xml;
+
+namespace restaurant_pos;
 
 public partial class MainPage : ContentPage
 {
+
+    public float totalPrice = 0;
+
+    public bool testing = false;
     public MainPage()
     {
         InitializeComponent();
+
+        if (testing)
+        {
+            AddItemTest();
+        }
+
     }
-    
-    public float totalPrice = 0;
-    public void AddItem(string item, float price, bool testing)
+
+    // Function to add an item
+
+    public void AddItem(object sender, EventArgs e)
     {
-        totalPrice += price;
+
+        var items = new Dictionary<string, (string, int)>(){
+            {"Kaffe", ("Kaffe", 40)},
+            {"Bulle", ("Bulle", 20)},
+            {"Apelsinjuice", ("Apelsinjuice", 15)}
+        };
+
+        var clickedButton = sender as Button;
+        var purchasedItem = items[clickedButton.ClassId].Item1;
+        var itemPrice = items[clickedButton.ClassId].Item2;
+
         var newItem = new Label
         {
-            Text = $"{item}: {price}kr",
+            Text = $"{purchasedItem}: {itemPrice}",
             FontSize = 32,
             TextColor = Colors.White,
             Margin = 10
         };
+
         purchasedItems.Children.Add(newItem);
+        totalPrice += items[clickedButton.ClassId].Item2;
         Price.Text = $"{totalPrice}kr";
-    }
-    public void Pay(object sender, EventArgs e)
-    {
-        totalPrice = 0;
-        Price.Text = $"{totalPrice}kr";
-        purchasedItems.Children.Clear();
     }
 
-    public void AddCoffee(object sender, EventArgs e)
+    // Function to clear all items
+
+    public void payItems(object sender, EventArgs e)
     {
-        // Price is up for discussion
-        AddItem("Coffee", 15, false);
+        purchasedItems.Children.Clear();
+        totalPrice = 0;
+        Price.Text = $"{totalPrice}kr";
     }
-    public void AddBun(object sender, EventArgs e)
+
+    // Tests
+    // Test to add item
+
+    public void AddItemTest()
     {
-        // Price is up for discussion
-        AddItem("Bun", 30, false);
+        var itemLength = purchasedItems.Children.Count;
+
+        Button b = this.FindByName<Button>("CounterBtn");
+        b.SendClicked();
+
+        if (purchasedItems.Count > itemLength)
+        {
+            Debug.WriteLine("Pass");
+        }
+        else
+        {
+            Debug.WriteLine("Fail");
+        }
+
     }
 }

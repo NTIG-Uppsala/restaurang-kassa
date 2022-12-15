@@ -6,7 +6,7 @@
     <ScrollView>
         <Grid
             BackgroundColor="White">
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="*" />
@@ -23,15 +23,27 @@
                     FontSize="48"
                     Margin="0, 25, 0, 0"
                     TextColor="Black"
-                    Text="Drink">
+                    Text="Dryck">
                 </Label>
 
                 <Button
                     x:Name="CounterBtn"
                     Margin="0, 10, 0, 0"
-                    Text="Coffee"
-                    ClassId="40"
-                    Clicked="AddCoffee"
+                    Text="Kaffe"
+                    ClassId="Kaffe"
+                    SemanticProperties.Hint="Counts the number of times you click"
+                    Clicked="AddItem"
+                    HorizontalOptions="Start" 
+                    TextColor="White"
+                    BackgroundColor="Black"/>
+
+                <Button
+                    x:Name="CounterBtn3"
+                    Margin="0, 10, 0, 0"
+                    Text="Apelsinjuice"
+                    ClassId="Apelsinjuice"
+                    SemanticProperties.Hint="Counts the number of times you click"
+                    Clicked="AddItem"
                     HorizontalOptions="Start" 
                     TextColor="White"
                     BackgroundColor="Black"/>
@@ -40,26 +52,27 @@
                     FontSize="48"
                     Margin="0, 25, 0, 0"
                     TextColor="Black"
-                    Text="Pastry">
+                    Text="Fikabröd">
                 </Label>
 
                 <Button
                     x:Name="CounterBtn2"
                     Margin="0, 10, 0, 0"
-                    Text="Bun"
-                    ClassId="20"
-                    Clicked="AddBun"
+                    Text="Bulle"
+                    ClassId="Bulle"
+                    SemanticProperties.Hint="Counts the number of times you click"
+                    Clicked="AddItem"
                     HorizontalOptions="Start" 
                     TextColor="White"
                     BackgroundColor="Black"/>
 
             </VerticalStackLayout>
 
-            
+
             <Grid
                 Grid.Column="1"
                 BackgroundColor="Black">
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="4*" />
                     <RowDefinition Height="*" />
@@ -72,30 +85,30 @@
                         x:Name="purchasedItems"
                         HorizontalOptions="Center">
                     </VerticalStackLayout>
-                </ScrollView>    
-                
-                    <VerticalStackLayout
+                </ScrollView>
+
+                <VerticalStackLayout
                         VerticalOptions="Center"
                         Grid.Row="1">
-                        <Label
+                    <Label
                             Text="0kr"
                             x:Name="Price"
                             FontSize="32"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"
                             TextColor="White">
-                        </Label>
-                        <Button
+                    </Label>
+                    <Button
                             Margin="25"
                             WidthRequest="100"
                             TextColor="Black"
-                            Clicked="Pay"
-                            Text="Pay">
-                        </Button>
-                    </VerticalStackLayout>
+                            Text="Betala"
+                            Clicked="payItems">
+                    </Button>
+                </VerticalStackLayout>
 
-             </Grid>
-            
+            </Grid>
+
         </Grid>
     </ScrollView>
 
