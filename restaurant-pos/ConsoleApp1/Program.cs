@@ -77,15 +77,14 @@
                             Console.WriteLine("Pay and clear cart? (y/n)");
                             option = Console.ReadLine();
 
-                            if (option == "y")
-                            {
-                                Cart.Pay();
-                                Console.WriteLine("Price has been paid.");
-                            }
-                            else
+                            if (option != "y")
                             {
                                 Console.WriteLine("Aborting payment process...");
+                                return;
                             }
+                            Cart.Pay();
+                            Console.WriteLine("Price has been paid.");
+                            
                             break;
                         case "a":
                             Console.WriteLine("\nAvailable commands: \n'Coffee', 'Bun'");
