@@ -5,7 +5,7 @@ using System.Xml;
 
 class Cart
 {
-    public List<Product> items;
+    public List<Product> items = new List<Product>();
 
     public decimal getTotalPrice()
     {
@@ -20,16 +20,12 @@ class Cart
     }
     public void addProduct(int productID, Menu productMenu)
     {
-        //if (productID.ToString() in productMenu.menuItems)
-
         foreach (Product entry in productMenu.menuItems)
         {
-            if (productID == entry.id)
-            {
-                this.items.Add(entry);
-                Console.WriteLine("Added " + entry.id + " " + entry.name);
-                break;
-            }
+            if (productID != entry.id) continue;
+            this.items.Add(entry);
+            Console.WriteLine("Added " + entry.id + " " + entry.name);
+            break;
         }
     }
 
@@ -53,8 +49,9 @@ class Cart
             Returns if the payment went through or not 
         */
 
-        bool isPaid = true;
+        // In the future this could call a possible processPayment method
 
+        bool isPaid = true;
         this.clearCart();
 
         return isPaid;
@@ -146,6 +143,9 @@ class Program
         {
             Console.Write(entry.name + ", " + entry.getStringPrice() + ", ID: " + entry.id + "\n");
         }
+        Cart cart = new Cart();
+        cart.addProduct(1, menu);
+        
 
         return 0;
     }
