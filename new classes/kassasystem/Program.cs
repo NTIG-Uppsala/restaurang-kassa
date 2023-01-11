@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Xml.Linq;
 
 class Cart
 {
@@ -104,26 +106,30 @@ class Menu
 {
     public Dictionary<int, Product> menuItems = new Dictionary<int, Product>();
 
+    public void addProduct(int id, string name, string description, decimal price, decimal tax)
+    {
+        Product new_product = new Product(id, $"Product {name}", $"Product {description} description",  price, 0.25m);
+        menuItems.Add(id, new_product);
+    }
+
+    public void removeProduct(int id) 
+    {
+        menuItems.Remove(id);
+    }
 }
 
 class Program
 {
-    static int Main(string[] args)
+    static void Main(string[] args)
     {
         Menu menu = new Menu();
 
-        for (int i = 1; i < 11; i++)
-        {
-            Product new_product = new Product(i, $"Product {i}", $"Product {i} description", i * 10, 0.25m);
-            //menu.items.Add(new_product);
-            menu.menuItems.Add(i, new_product);
-        }
+        menu.addProduct(1, "Bun", "Soft and nice", 15, 0.12m);
+        menu.addProduct(2, "Coffee", "Black", 25, 0.12m);
 
         foreach (KeyValuePair<int, Product> entry in menu.menuItems)
         {
-            Console.Write(entry.Value.name + ", " + entry.Value.price + "\n");
+            Console.Write("le " + entry.Value.name + ", " + entry.Value.getPrice() + "\n");
         }
-
-        return 0;
     }
 }
