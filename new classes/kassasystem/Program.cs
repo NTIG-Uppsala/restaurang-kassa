@@ -106,8 +106,9 @@ class Menu
 {
     public Dictionary<int, Product> menuItems = new Dictionary<int, Product>();
 
-    public void addProduct(int id, string name, string description, decimal price, decimal tax)
+    public void addProduct(string name, string description, decimal price, decimal tax)
     {
+        int id = menuItems.Count()+1;
         Product new_product = new Product(id, $"Product {name}", $"Product {description} description",  price, 0.25m);
         menuItems.Add(id, new_product);
     }
@@ -120,16 +121,18 @@ class Menu
 
 class Program
 {
-    static void Main(string[] args)
+    static int Main(string[] args)
     {
         Menu menu = new Menu();
 
-        menu.addProduct(1, "Bun", "Soft and nice", 15, 0.12m);
-        menu.addProduct(2, "Coffee", "Black", 25, 0.12m);
+        menu.addProduct("Bun", "Soft and nice", 15, 0.12m);
+        menu.addProduct("Coffee", "Black", 25, 0.12m);
 
         foreach (KeyValuePair<int, Product> entry in menu.menuItems)
         {
-            Console.Write("le " + entry.Value.name + ", " + entry.Value.getPrice() + "\n");
+            Console.Write(entry.Value.name + ", " + entry.Value.getPrice() + ", ID: " + entry.Key + "\n");
         }
+
+        return 0;
     }
 }
