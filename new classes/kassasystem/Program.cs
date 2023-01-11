@@ -108,7 +108,12 @@ class Menu
 
     public void addProduct(string name, string description, decimal price, decimal tax)
     {
-        int id = menuItems.Count()+1;
+        int id = 0;
+        if (menuItems.Count > 0) 
+        { 
+            id = menuItems.Last().id+1; 
+        }
+        
         Product new_product = new Product(id, $"Product {name}", $"Product {description} description",  price, 0.25m);
         menuItems.Add(new_product);
     }
