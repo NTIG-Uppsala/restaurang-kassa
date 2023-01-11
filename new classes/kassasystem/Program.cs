@@ -20,12 +20,12 @@ class Cart
     {
         //if (productID.ToString() in productMenu.menuItems)
 
-        foreach (Product product in productMenu.items)
+        foreach (KeyValuePair<int, Product> entry in productMenu.menuItems)
         {
-            if (productID == product.id)
+            if (productID == entry.Value.id)
             {
-                this.items.Add(productMenu.menuItems[productID.ToString()]);
-                Console.WriteLine("Added " + product.id + " " + product.name);
+                this.items.Add(productMenu.menuItems[productID]);
+                Console.WriteLine("Added " + entry.Value.id + " " + entry.Value.name);
                 break;
             }
         }
@@ -43,10 +43,6 @@ class Cart
                 break;
            }
         }
-    }
-    void editProduct(int productID, Product newProduct) 
-    {
-
     }
 
     bool pay()
@@ -106,9 +102,7 @@ class Product
 
 class Menu
 {
-    public List<Product> items = new List<Product>();
-
-    public Dictionary<String, Product> menuItems = new Dictionary<string, Product>();
+    public Dictionary<int, Product> menuItems = new Dictionary<int, Product>();
 
 }
 
@@ -125,9 +119,9 @@ class Program
             menu.menuItems.Add(i, new_product);
         }
 
-        foreach (Product p in menu.items)
+        foreach (KeyValuePair<int, Product> entry in menu.menuItems)
         {
-            Console.WriteLine(p.name);
+            Console.Write(entry.Value.name + ", " + entry.Value.price + "\n");
         }
 
         return 0;
