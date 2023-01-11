@@ -85,13 +85,14 @@ class Product
 
     public decimal getPrice()
     {
-        // Do Stuff
-        return this.price * (1 + this.tax);
+        // Calculates price of product with tax
+        Console.WriteLine("Tax" + (1.0m + this.tax));
+        return this.price * (1.0m + this.tax);
     }
 
     public decimal getPriceNoTax()
     {
-        // Do more stuff without tax
+        // Calculates price of product without tax
         return this.price;
     }
 
@@ -108,20 +109,28 @@ class Menu
 
     public void addProduct(string name, string description, decimal price, decimal tax)
     {
-        int id = 0;
+        int last_avaliable_product_id = 0;
         if (menuItems.Count > 0) 
-        { 
-            id = menuItems.Last().id+1; 
+        {
+            int last_product_id = menuItems.Last().id;
+            last_avaliable_product_id = last_product_id + 1; 
         }
         
-        Product new_product = new Product(id, $"Product {name}", $"Product {description} description",  price, 0.25m);
+        Product new_product = new Product(last_avaliable_product_id, $"Product {name}", $"Product {description} description",  price, tax);
         menuItems.Add(new_product);
     }
 
-    //public void removeProduct(int id) 
-    //{
-    //    menuItems.Remove(id);
-    //}
+    public void removeProduct(int id)
+    {
+        foreach (Product product in this.menuItems)
+        {
+            if (product.id == id)
+            {
+                menuItems.Remove(product);
+                break;
+            }
+        }
+    }
 }
 
 class Program
@@ -131,11 +140,11 @@ class Program
         Menu menu = new Menu();
 
         menu.addProduct("Bun", "Soft and nice", 15, 0.12m);
-        menu.addProduct("Coffee", "Black", 25, 0.12m);
+        menu.addProduct("Coffee", "Black", 30, 0.12m);
 
         foreach (Product entry in menu.menuItems)
         {
-            Console.Write(entry.name + ", " + entry.getPrice() + ", ID: " + entry.id + "\n");
+            Console.Write(entry.name + ", " + entry.getStringPrice() + ", ID: " + entry.id + "\n");
         }
 
         return 0;
