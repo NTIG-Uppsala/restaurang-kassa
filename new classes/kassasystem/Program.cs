@@ -1,13 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Xml.Linq;
+
+
+using System.Xml;
 
 class Cart
 {
     public List<Product> items;
 
-    decimal getTotalPrice()
+    public decimal getTotalPrice()
     {
         decimal total = 0;
         foreach (Product product in items)
@@ -18,22 +18,22 @@ class Cart
         return total;
 
     }
-    void addProduct(int productID, Menu productMenu)
+    public void addProduct(int productID, Menu productMenu)
     {
         //if (productID.ToString() in productMenu.menuItems)
 
-        foreach (KeyValuePair<int, Product> entry in productMenu.menuItems)
+        foreach (Product entry in productMenu.menuItems)
         {
-            if (productID == entry.Value.id)
+            if (productID == entry.id)
             {
-                this.items.Add(productMenu.menuItems[productID]);
-                Console.WriteLine("Added " + entry.Value.id + " " + entry.Value.name);
+                this.items.Add(entry);
+                Console.WriteLine("Added " + entry.id + " " + entry.name);
                 break;
             }
         }
     }
 
-    void removeProduct(int productID) 
+    public void removeProduct(int productID) 
     {
         foreach (Product product in this.items)
         {
@@ -47,7 +47,7 @@ class Cart
         }
     }
 
-    bool pay()
+    public bool pay()
     {
         /*
             Returns if the payment went through or not 
@@ -60,7 +60,7 @@ class Cart
         return isPaid;
     }
 
-    void clearCart()
+    public void clearCart()
     {
         this.items.Clear();
     }
@@ -89,13 +89,13 @@ class Product
         return this.price * (1 + this.tax);
     }
 
-    decimal getPriceNoTax()
+    public decimal getPriceNoTax()
     {
         // Do more stuff without tax
         return this.price;
     }
 
-    string getStringPrice()
+    public string getStringPrice()
     {
         return string.Format("{0} SEK", getPrice());
     }
@@ -104,19 +104,19 @@ class Product
 
 class Menu
 {
-    public Dictionary<int, Product> menuItems = new Dictionary<int, Product>();
+    public List<Product> menuItems = new List<Product>();
 
     public void addProduct(string name, string description, decimal price, decimal tax)
     {
         int id = menuItems.Count()+1;
         Product new_product = new Product(id, $"Product {name}", $"Product {description} description",  price, 0.25m);
-        menuItems.Add(id, new_product);
+        menuItems.Add(new_product);
     }
 
-    public void removeProduct(int id) 
-    {
-        menuItems.Remove(id);
-    }
+    //public void removeProduct(int id) 
+    //{
+    //    menuItems.Remove(id);
+    //}
 }
 
 class Program
@@ -128,9 +128,9 @@ class Program
         menu.addProduct("Bun", "Soft and nice", 15, 0.12m);
         menu.addProduct("Coffee", "Black", 25, 0.12m);
 
-        foreach (KeyValuePair<int, Product> entry in menu.menuItems)
+        foreach (Product entry in menu.menuItems)
         {
-            Console.Write(entry.Value.name + ", " + entry.Value.getPrice() + ", ID: " + entry.Key + "\n");
+            Console.Write(entry.name + ", " + entry.getPrice() + ", ID: " + entry.id + "\n");
         }
 
         return 0;
