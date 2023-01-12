@@ -2,7 +2,7 @@
 {
     class Cart
     {
-        public List<Product> items = new List<Product>();
+        private List<Product> items = new List<Product>();
 
         public decimal getTotalPrice()
         {
@@ -27,7 +27,7 @@
             */
 
             // Loop over the menu
-            foreach (Product entry in productMenu.menuItems)
+            foreach (Product entry in productMenu.getMenu())
             {
                 // If the product id that wants to be added is not the current item in the loop skip
                 if (productID != entry.id) continue;
@@ -78,11 +78,11 @@
 
     class Product
     {
-        public int id;
-        public string name;
-        public string description;
-        public decimal price;
-        public decimal tax;
+        public int id { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public decimal price { get; set; }
+        public decimal tax { get; set; }
 
         public Product(int id, string name, string description, decimal price, decimal tax)
         {
@@ -117,7 +117,7 @@
 
     class Menu
     {
-        public List<Product> menuItems = new List<Product>();
+        private List<Product> menuItems = new List<Product>();
 
         public void addProduct(string name, string description, decimal price, decimal tax)
         {
@@ -134,7 +134,8 @@
                 last_avaliable_product_id = last_product_id + 1;
             }
 
-            Product new_product = new Product(last_avaliable_product_id, $"Product {name}", $"Product {description} description", price, tax);
+            Product new_product = 
+                new Product(last_avaliable_product_id, name, description, price, tax);
             menuItems.Add(new_product);
         }
 
@@ -148,5 +149,11 @@
                 break;
             }
         }
+
+        public List<Product> getMenu()
+        {
+            return menuItems;
+        }
+        
     }
 }
