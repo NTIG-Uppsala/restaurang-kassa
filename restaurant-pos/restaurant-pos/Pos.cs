@@ -1,8 +1,19 @@
 ﻿namespace restaurant_pos
 {
+    internal class Table
+    {
+        int tableNumber;
+        Menu Menumenu;
+    }
     internal class Cart
     {
+        int tableNumber;
         private List<Product> items = new List<Product>();
+
+        public Cart(int tableNumber)
+        {
+            this.tableNumber = tableNumber;
+        }
 
         public decimal getTotalPrice()
         {
