@@ -12,6 +12,7 @@ namespace Restaurant_pos_program
 
     public class PosProgram
     {
+
         bool isRunning = true;
         public void Loop()
         {
@@ -27,39 +28,25 @@ namespace Restaurant_pos_program
                 {
                     case "a": // Add item to cart
                     case "add":
-
-                        // If there is no food in menu
-                        if (menu.getMenu().Count == 0)
-                        {
-                            Console.WriteLine("Sorry, the menu is empty");
-                            break;
-                        }
-                        foreach (Product product in menu.getMenu()) 
-                        {
-                            Console.WriteLine(product.id);
-                        }
-                        // TODO: Make so you can choice what to add
-                        int itemId = getInputInt("What to add? (Type the number)");
-                        cart.addProduct(itemId,menu);
-                        Console.WriteLine("To pay: " + cart.getTotalPrice());
+                        add(menu, cart);
                         break;
                     case "l":
                     case "list": // List items in cart
-                        foreach (Product product in cart.getCart())
-                        { 
-                            Console.WriteLine(product.id + product.name + product.getPrice() + product.tax + " kr");
-                        }
+                        printCart(cart);
                         break;
                     case "h":
                     case "help": // show commands
                         Console.WriteLine("Options:");
-                        Console.WriteLine("a to add to cart, l to list items in cart, p to pay, m to show menu, q exit program");
+                        Console.WriteLine("- a to add to cart\n- l to list items in cart\n- p to pay\n- m to show menu\n- q to exit program");
                         break;
                     case "p":
                     case "pay": // pay
+                        pay(cart);
+
                         break;
                     case "m":
                     case "menu": // show menu
+                        printMenu(menu);
                         break;
                     case "q":
                     case "quit": // exit program
@@ -71,22 +58,90 @@ namespace Restaurant_pos_program
                 }
             }
         }
+
+        void add(Menu menu, Cart cart)
+        {
+            // If there is no food in menu
+            if (menu.getMenu().Count == 0)
+            {
+                Console.WriteLine("Sorry, the menu is empty");
+                return;
+            }
+            printMenu(menu);
+
+            int itemId = getInputInt("What to add? (Type the number)");
+
+            if (itemId == -1) return;
+
+            cart.addProduct(itemId, menu);
+            Console.WriteLine("New total price: " + cart.getTotalPrice());
+            return;
+        }
+        void pay(Cart cart)
+        {
+            if (cart.getCart().Count == 0)
+            {
+                Console.WriteLine("Cart is empty");
+                return;
+            }
+            printCart(cart);
+            string paymentAccept = getInput("Accept? (y/n)");
+            if (paymentAccept == "y" || paymentAccept == "yes")
+            {
+                cart.pay();
+                Console.WriteLine("Paid");
+            }
+            else
+            {
+                Console.WriteLine("Canceled");
+            }
+        }
+
+        void printCart(Cart cart)
+        {
+            Console.WriteLine("Cart:");
+
+            foreach (Product product in cart.getCart())
+            {
+                Console.WriteLine("\t1x " + product.name + " " + product.getPrice() + " kr (with " + product.tax * 100 + "% tax)");
+            }
+            Console.WriteLine("Total: " + cart.getTotalPrice() + " kr");
+        }
+
+        void printMenu(Menu menu)
+        {
+            Console.WriteLine("Menu:");
+
+            foreach (Product product in menu.getMenu())
+            {
+                Console.WriteLine("\t" + product.id + " " + product.name + " " + product.getPrice() + " kr (with " + product.tax * 100 + "% tax)");
+            }
+            Console.WriteLine("");
+        }
+
         string getInput(string question)
         {
             Console.WriteLine(question);
             var input = Console.ReadLine();
+            Console.WriteLine("");
             return (input is not null) ? input : "";
-            // if (input == null){input = ""}
         }
         int getInputInt(string question)
         {
             Console.WriteLine(question);
             try
             {
-                return Convert.ToInt32(Console.ReadLine());
+                string input = Console.ReadLine(); // not null
+                
+                if (input == "q" || input == "quit") return -1;
+
+                int inputInt = Convert.ToInt32(input);
+                Console.WriteLine("");
+                return inputInt;
             }
             catch(Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
                 Console.WriteLine("Please give a number");
                 return getInputInt(question);
             }
