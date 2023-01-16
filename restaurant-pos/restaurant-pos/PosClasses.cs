@@ -1,11 +1,6 @@
-﻿namespace restaurant_pos
+﻿namespace Restaurant_pos_classes
 {
-    internal class Table
-    {
-        int tableNumber;
-        Menu Menumenu;
-    }
-    internal class Cart
+    public class Cart
     {
         int tableNumber;
         private List<Product> items = new List<Product>();
@@ -17,9 +12,7 @@
 
         public decimal getTotalPrice()
         {
-            /*
-                Sums up the price of all products and returns the total 
-            */
+            // Sums up the price of all products and returns the total 
 
             decimal total = 0;
             foreach (Product product in items)
@@ -28,14 +21,11 @@
             }
 
             return total;
-
         }
 
         public void addProduct(int productID, Menu productMenu)
         {
-            /*
-                Method to add a product from the menu to the cart
-            */
+            // Method to add a product from the menu to the cart
 
             // Loop over the menu
             foreach (Product entry in productMenu.getMenu())
@@ -51,9 +41,7 @@
 
         public void removeProduct(int productID)
         {
-            /*
-                Removes a product from the cart     
-            */
+            // Removes a product from the cart     
 
             foreach (Product product in this.items)
             {
@@ -69,9 +57,7 @@
 
         public bool pay()
         {
-            /*
-                Returns if the payment went through or not 
-            */
+            // Returns if the payment went through or not 
 
             // In the future this could call a possible processPayment method
 
@@ -85,9 +71,14 @@
         {
             this.items.Clear();
         }
+
+        public List<Product> getCart()
+        {
+            return this.items;
+        }
     }
 
-    class Product
+    public class Product
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -118,23 +109,19 @@
 
         public string getStringPrice()
         {
-            /*
-                Returns a string with the correct format of the price eg 250.00 SEK
-            */
+            // Returns a string with the correct format of the price eg 250.00 SEK
             return string.Format("{0} SEK", getPrice());
         }
 
     }
 
-    class Menu
+    public class Menu
     {
         private List<Product> menuItems = new List<Product>();
 
         public void addProduct(string name, string description, decimal price, decimal tax)
         {
-            /*
-                Add a product to the menu 
-            */
+            // Add a product to the menu 
 
             // Gets id of last item in menu if menu has items and adds 1 to it. 
             // If the menu has no items, just set the id to 0
