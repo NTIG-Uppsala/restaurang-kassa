@@ -194,8 +194,10 @@ namespace Restaurant_pos_classes
 
             using (StreamWriter sw = File.CreateText(filename))
             { 
-            foreach (string stringPart in receipt)
-                { sw.WriteLine(stringPart); }
+                foreach (string stringPart in receipt)
+                { 
+                    sw.WriteLine(stringPart); 
+                }
                 sw.Close(); 
             }
         }
