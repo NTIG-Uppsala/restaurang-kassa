@@ -64,6 +64,9 @@
             bool isPaid = true;
             this.clearCart();
 
+            Receipt receipt = new Receipt();
+            receipt.createReceipt();
+
             return isPaid;
         }
 
@@ -153,5 +156,25 @@
             return menuItems;
         }
 
+    }
+
+    public class Receipt
+    {
+        public void createReceipt()
+        {
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
+
+            string filename = string.Format(@"C:\Users\{0}\Documents\restaurant-receipts\receipt_{1}.txt", userName, DateTimeOffset.Now.ToUnixTimeSeconds().ToString());
+
+            if (!Directory.Exists(string.Format(@"c:\Users\{0}\Documents\restaurant-receipts\", userName)))
+            {
+                Directory.CreateDirectory(string.Format(@"c:\Users\{0}\Documents\restaurant-receipts\", userName));
+            }
+
+
+            //string path = @"C:\Users\Nikole\Documents\test.txt";
+            //string path = @"" + DateTimeOffset.Now.ToUnixTimeSeconds().ToString() + ".txt";
+            using (StreamWriter sw = File.CreateText(filename));
+        }
     }
 }
