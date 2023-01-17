@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Restaurant_pos_classes
+﻿namespace Restaurant_pos_classes
 {
     public class Cart
     {
@@ -160,34 +158,32 @@ namespace Restaurant_pos_classes
 
     public class Receipt
     {
-        long epochTime = DateTimeOffset.Now.ToUnixTimeSeconds();
-        DateTime currentDateTime = DateTime.Now;
+        private long epochTime = DateTimeOffset.Now.ToUnixTimeSeconds();
+        private DateTime currentDateTime = DateTime.Now;
+        private List<string> receipt = new List<string>();
+
+        // Path related variables
+        private string username { get; set; }
+        private string path { get; set; }
+        private string filename { get; set; }
+        private string fullpath { get; set; }
+
+        public Receipt()
+        {
+            this.username = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
+            this.path = string.Format(@"C:\Users\{0}\Documents\restaurant-receipts", username);
+            this.filename = string.Format(@"receipt_{1}.txt", epochTime.ToString());
+            this.fullpath = path + @"\" + filename;
+
+            // Create directory if it doesn't exist when creating new object instance
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
         public void createReceipt(Cart cart)
         {
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
-
-            string filename = string.Format(@"C:\Users\{0}\Documents\restaurant-receipts\receipt_{1}.txt", userName, epochTime.ToString());
-
-            if (!Directory.Exists(string.Format(@"c:\Users\{0}\Documents\restaurant-receipts\", userName)))
-            {
-                Directory.CreateDirectory(string.Format(@"c:\Users\{0}\Documents\restaurant-receipts\", userName));
-            }
-
-            List<string> receipt = new List<string>()
-            {
-                "Bengans Burgeria",
-                "Fjällgatan 32H",
-                "981 39 Jönköping\n",
-                "Tel: (+46)63-055 55 55",
-                "Mail: info.bengans@gmail.com",
-                "Org. Nr: 234567-8901\n",
-                $"{currentDateTime.ToString("s").Replace("T", " ")}",
-                $"Säljare: {"Bengan"}",
-                $"Kvitto Nr: {epochTime}",
-                "-----------------------------------------------------\n",
-            };
-
-
             decimal vat25 = 0m;
             decimal vat12 = 0m;
             decimal vat0 = 0m;
@@ -211,34 +207,62 @@ namespace Restaurant_pos_classes
             decimal netPrice = vat25 + vat12 + vat0;
             decimal totalVat = (vat25 * 0.25m) + (vat12 * 0.12m);
 
+            /*
+                Contact information and receipt information
+             */
+            receipt.Add("Bengans Burgeria");
+            receipt.Add("Bengans Burgeria");
+            receipt.Add("Fjällgatan 32H");
+            receipt.Add("981 39 Jönköping\n");
+            receipt.Add("Tel: (+46)63-055 55 55");
+            receipt.Add("Mail: info.bengans@gmail.com");
+            receipt.Add("Org. Nr: 234567-8901\n");
+            receipt.Add($"{currentDateTime.ToString("s").Replace("T", " ")}");
+            receipt.Add($"Säljare: {"Bengan"}");
+            receipt.Add($"Kvitto Nr: {epochTime}");
+            receipt.Add("-----------------------------------------------------\n");
+
+
+            /*
+                Product information and price
+             */
             foreach (Product product in cart.getCart())
             {
                 receipt.Add("\n-----------------------------------------------------\n");
                 receipt.Add("\t1x " + product.name + " " + product.getStringPrice() + " (with " + product.tax * 100 + "% tax)");  ;
             }
             receipt.Add("\n-----------------------------------------------------\n");
+            
 
-            List<string> receitPart2 = new List<string>()
+            /*
+               Vat basis and total
+             */
+            receipt.Add("-----------------------------------------------------\n");
+            receipt.Add("VAT basis:");
+            receipt.Add($"VAT 25%\t{vat25.ToString("0.00")} SEK");
+            receipt.Add($"VAT 12%\t{vat12.ToString("0.00")} SEK");
+            receipt.Add($"No VAT\t{vat0.ToString("0.00")} SEK\n");
+            receipt.Add($"VAT total\t{netPrice} SEK\n");
+            receipt.Add("-----------------------------------------------------\n");
+            receipt.Add($"Total:\t\t{cart.getTotalPrice()} SEK\n");
+
+            // Write Receipt to file
+            saveReceiptToFile();
+        }
+
+        void saveReceiptToFile()
+        {
+            // Open ReadWrite Stream
+            using (StreamWriter sw = File.CreateText(fullpath))
             {
-                "-----------------------------------------------------\n",
-                "VAT basis:",
-                $"VAT 25%\t{vat25.ToString("0.00")} SEK",
-                $"VAT 12%\t{vat12.ToString("0.00")} SEK",
-                $"No VAT\t{vat0.ToString("0.00")} SEK\n",
-                $"VAT total\t{netPrice} SEK\n",
-
-                "-----------------------------------------------------\n",
-                $"Total:\t\t{cart.getTotalPrice()} SEK\n",
-            };
-            receipt.AddRange(receitPart2);
-
-            using (StreamWriter sw = File.CreateText(filename))
-            { 
+                // Loop over recipet stringparts and write to file
                 foreach (string stringPart in receipt)
-                { 
-                    sw.WriteLine(stringPart); 
+                {
+                    sw.WriteLine(stringPart);
                 }
-                sw.Close(); 
+
+                // Close Steam
+                sw.Close();
             }
         }
     }
