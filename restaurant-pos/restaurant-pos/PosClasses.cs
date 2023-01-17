@@ -172,7 +172,7 @@
         {
             this.username = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
             this.path = string.Format(@"C:\Users\{0}\Documents\restaurant-receipts", username);
-            this.filename = string.Format(@"receipt_{1}.txt", epochTime.ToString());
+            this.filename = string.Format(@"receipt_{0}.txt", epochTime.ToString());
             this.fullpath = path + @"\" + filename;
 
             // Create directory if it doesn't exist when creating new object instance
@@ -244,6 +244,8 @@
             receipt.Add($"VAT total\t{netPrice} SEK\n");
             receipt.Add("-----------------------------------------------------\n");
             receipt.Add($"Total:\t\t{cart.getTotalPrice()} SEK\n");
+            receipt.Add("-----------------------------------------------------\n");
+
 
             // Write Receipt to file
             saveReceiptToFile();
