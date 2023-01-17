@@ -211,7 +211,6 @@
                 Contact information and receipt information
              */
             receipt.Add("Bengans Burgeria");
-            receipt.Add("Bengans Burgeria");
             receipt.Add("Fjällgatan 32H");
             receipt.Add("981 39 Jönköping\n");
             receipt.Add("Tel: (+46)63-055 55 55");
