@@ -10,25 +10,25 @@
             this.tableNumber = tableNumber;
         }
 
-        public decimal getTotalPrice()
+        public decimal GetTotalPrice()
         {
             // Sums up the price of all products and returns the total 
 
             decimal total = 0;
             foreach (Product product in items)
             {
-                total += product.getPrice();
+                total += product.GetPrice();
             }
 
             return total;
         }
 
-        public void addProduct(int productID, Menu productMenu)
+        public void AddProduct(int productID, Menu productMenu)
         {
             // Method to add a product from the menu to the cart
 
             // Loop over the menu
-            foreach (Product entry in productMenu.getMenu())
+            foreach (Product entry in productMenu.GetMenu())
             {
                 // If the product id that wants to be added is not the current item in the loop skip
                 if (productID != entry.id) continue;
@@ -39,7 +39,7 @@
             }
         }
 
-        public void removeProduct(int productID)
+        public void RemoveProduct(int productID)
         {
             // Removes a product from the cart     
 
@@ -55,25 +55,25 @@
             }
         }
 
-        public bool pay()
+        public bool Pay()
         {
             // Returns if the payment went through or not 
 
             // In the future this could call a possible processPayment method
 
             bool isPaid = true;
-            this.clearCart();
+            this.ClearCart();
 
 
             return isPaid;
         }
 
-        public void clearCart()
+        public void ClearCart()
         {
             this.items.Clear();
         }
 
-        public List<Product> getCart()
+        public List<Product> GetCart()
         {
             return this.items;
         }
@@ -96,22 +96,22 @@
             this.tax = tax;
         }
 
-        public decimal getPrice()
+        public decimal GetPrice()
         {
             // Calculates price of product with tax eg (100 * 1.25 -> 125 SEK)
             return this.price * (1.0m + this.tax);
         }
 
-        public decimal getPriceNoTax()
+        public decimal GetPriceNoTax()
         {
             // Calculates price of product without tax
             return this.price;
         }
 
-        public string getStringPrice()
+        public string GetStringPrice()
         {
             // Returns a string with the correct format of the price eg 250.00 SEK
-            return string.Format("{0} SEK", getPrice());
+            return string.Format("{0} SEK", GetPrice());
         }
 
     }
@@ -120,7 +120,7 @@
     {
         private List<Product> menuItems = new List<Product>();
 
-        public void addProduct(string name, string description, decimal price, decimal tax)
+        public void AddProduct(string name, string description, decimal price, decimal tax)
         {
             // Add a product to the menu 
 
@@ -138,7 +138,7 @@
             menuItems.Add(new_product);
         }
 
-        public void removeProduct(int id)
+        public void RemoveProduct(int id)
         {
             foreach (Product product in this.menuItems)
             {
@@ -149,7 +149,7 @@
             }
         }
 
-        public List<Product> getMenu()
+        public List<Product> GetMenu()
         {
             return menuItems;
         }
@@ -182,24 +182,24 @@
             }
         }
 
-        public void createReceipt(Cart cart)
+        public void CreateReceipt(Cart cart)
         {
             decimal vat25 = 0m;
             decimal vat12 = 0m;
             decimal vat0 = 0m;
 
-            foreach (Product product in cart.getCart())
+            foreach (Product product in cart.GetCart())
             {
                 switch (product.tax)
                 {
                     case 0.25m:
-                        vat25 += product.getPrice() - product.getPriceNoTax(); // 1.25m;
+                        vat25 += product.GetPrice() - product.GetPriceNoTax(); // 1.25m;
                         break;
                     case 0.12m:
-                        vat12 += product.getPrice() - product.getPriceNoTax(); // 1.12m;
+                        vat12 += product.GetPrice() - product.GetPriceNoTax(); // 1.12m;
                         break;
                     default:
-                        vat0 += product.getPrice() - product.getPriceNoTax();
+                        vat0 += product.GetPrice() - product.GetPriceNoTax();
                         break;
                 }
             }
@@ -225,10 +225,10 @@
             /*
                 Product information and price
              */
-            foreach (Product product in cart.getCart())
+            foreach (Product product in cart.GetCart())
             {
                 receipt.Add("\n-----------------------------------------------------\n");
-                receipt.Add("\t1x " + product.name + " " + product.getStringPrice() + " (with " + product.tax * 100 + "% tax)");  ;
+                receipt.Add("\t1x " + product.name + " " + product.GetStringPrice() + " (with " + product.tax * 100 + "% tax)");  ;
             }
             receipt.Add("\n-----------------------------------------------------\n");
             
@@ -243,15 +243,15 @@
             receipt.Add($"No VAT\t{vat0.ToString("0.00")} SEK\n");
             receipt.Add($"VAT total\t{netPrice} SEK\n");
             receipt.Add("-----------------------------------------------------\n");
-            receipt.Add($"Total:\t\t{cart.getTotalPrice()} SEK\n");
+            receipt.Add($"Total:\t\t{cart.GetTotalPrice()} SEK\n");
             receipt.Add("-----------------------------------------------------\n");
 
 
             // Write Receipt to file
-            saveReceiptToFile();
+            SaveReceiptToFile();
         }
 
-        void saveReceiptToFile()
+        void SaveReceiptToFile()
         {
             // Open ReadWrite Stream
             using (StreamWriter sw = File.CreateText(fullpath))

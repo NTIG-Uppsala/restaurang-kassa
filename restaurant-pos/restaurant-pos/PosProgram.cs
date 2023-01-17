@@ -19,13 +19,13 @@ namespace Restaurant_pos_program
             Menu menu = new();
             Cart cart = new(1);
             // To see that you can add items to cart
-            menu.addProduct("BUN","It maybe a 'bulle'", 10, 0.12m);
-            menu.addProduct("COFFE", "COFFE contains coffee", 10, 0.12m);
-            menu.addProduct("Mariestads Långhals", "Storstark :)", 750, 0.25m);
+            menu.AddProduct("BUN","It maybe a 'bulle'", 10, 0.12m);
+            menu.AddProduct("COFFE", "COFFE contains coffee", 10, 0.12m);
+            menu.AddProduct("Mariestads Långhals", "Storstark :)", 750, 0.25m);
             while (isRunning)
             {
                 
-                switch (getInput("\nChoose an option (h for help) : "))
+                switch (GetInput("\nChoose an option (h for help) : "))
                 {
                     case "a": // Add item to cart
                     case "add":
@@ -33,7 +33,7 @@ namespace Restaurant_pos_program
                         break;
                     case "l":
                     case "list": // List items in cart
-                        printCart(cart);
+                        PrintCart(cart);
                         break;
                     case "h":
                     case "help": // show commands
@@ -42,12 +42,12 @@ namespace Restaurant_pos_program
                         break;
                     case "p":
                     case "pay": // pay
-                        pay(cart);
+                        Pay(cart);
 
                         break;
                     case "m":
                     case "menu": // show menu
-                        printMenu(menu);
+                        PrintMenu(menu);
                         break;
                     case "q":
                     case "quit": // exit program
@@ -63,35 +63,35 @@ namespace Restaurant_pos_program
         void add(Menu menu, Cart cart)
         {
             // If there is no food in menu
-            if (menu.getMenu().Count == 0)
+            if (menu.GetMenu().Count == 0)
             {
                 Console.WriteLine("Sorry, the menu is empty");
                 return;
             }
-            printMenu(menu);
+            PrintMenu(menu);
 
-            int itemId = getInputInt("What to add? (Type the number)");
+            int itemId = GetInputInt("What to add? (Type the number)");
 
             if (itemId == -1) return;
 
-            cart.addProduct(itemId, menu);
-            Console.WriteLine("New total price: " + cart.getTotalPrice());
+            cart.AddProduct(itemId, menu);
+            Console.WriteLine("New total price: " + cart.GetTotalPrice());
             return;
         }
-        void pay(Cart cart)
+        void Pay(Cart cart)
         {
-            if (cart.getCart().Count == 0)
+            if (cart.GetCart().Count == 0)
             {
                 Console.WriteLine("Cart is empty");
                 return;
             }
-            printCart(cart);
-            string paymentAccept = getInput("Accept? (y/n)");
+            PrintCart(cart);
+            string paymentAccept = GetInput("Accept? (y/n)");
             if (paymentAccept == "y" || paymentAccept == "yes")
             {
                 Receipt receipt = new Receipt();
-                receipt.createReceipt(cart);
-                cart.pay();
+                receipt.CreateReceipt(cart);
+                cart.Pay();
                 Console.WriteLine("Paid");
             }
             else
@@ -100,36 +100,36 @@ namespace Restaurant_pos_program
             }
         }
 
-        void printCart(Cart cart)
+        void PrintCart(Cart cart)
         {
             Console.WriteLine("Cart:");
 
-            foreach (Product product in cart.getCart())
+            foreach (Product product in cart.GetCart())
             {
-                Console.WriteLine("\t1x " + product.name + " " + product.getPrice() + " kr (with " + product.tax * 100 + "% tax)");
+                Console.WriteLine("\t1x " + product.name + " " + product.GetPrice() + " kr (with " + product.tax * 100 + "% tax)");
             }
-            Console.WriteLine("Total: " + cart.getTotalPrice() + " kr");
+            Console.WriteLine("Total: " + cart.GetTotalPrice() + " kr");
         }
 
-        void printMenu(Menu menu)
+        void PrintMenu(Menu menu)
         {
             Console.WriteLine("Menu:");
 
-            foreach (Product product in menu.getMenu())
+            foreach (Product product in menu.GetMenu())
             {
-                Console.WriteLine("\t" + product.id + " " + product.name + " " + product.getPrice() + " kr (with " + product.tax * 100 + "% tax)");
+                Console.WriteLine("\t" + product.id + " " + product.name + " " + product.GetPrice() + " kr (with " + product.tax * 100 + "% tax)");
             }
             Console.WriteLine("");
         }
 
-        string getInput(string question)
+        string GetInput(string question)
         {
             Console.WriteLine(question);
             var input = Console.ReadLine();
             Console.WriteLine("");
             return (input is not null) ? input : "";
         }
-        int getInputInt(string question)
+        int GetInputInt(string question)
         {
             Console.WriteLine(question);
             try
@@ -146,7 +146,7 @@ namespace Restaurant_pos_program
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
                 Console.WriteLine("Please give a number");
-                return getInputInt(question);
+                return GetInputInt(question);
             }
         }
     }
