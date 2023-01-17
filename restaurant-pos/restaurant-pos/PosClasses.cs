@@ -214,19 +214,21 @@ namespace Restaurant_pos_classes
             foreach (Product product in cart.getCart())
             {
                 receipt.Add("\n-----------------------------------------------------\n");
-                receipt.Add("\t1x " + product.name + " " + product.getPrice() + " kr (with " + product.tax * 100 + "% tax)");
+                receipt.Add("\t1x " + product.name + " " + product.getStringPrice() + " (with " + product.tax * 100 + "% tax)");  ;
             }
             receipt.Add("\n-----------------------------------------------------\n");
 
             List<string> receitPart2 = new List<string>()
             {
                 "-----------------------------------------------------\n",
-                "Momsunderlag:",
-                $"Moms 25%\t{vat25.ToString("0.00")} SEK",
-                $"Moms 12%\t{vat12.ToString("0.00")} SEK",
-                $"Momsfritt\t{vat0.ToString("0.00")} SEK\n",
-                $"SUMMA:\t\t{cart.getTotalPrice()} SEK\n",
+                "VAT basis:",
+                $"VAT 25%\t{vat25.ToString("0.00")} SEK",
+                $"VAT 12%\t{vat12.ToString("0.00")} SEK",
+                $"No VAT\t{vat0.ToString("0.00")} SEK\n",
+                $"VAT total\t{netPrice} SEK\n",
+
                 "-----------------------------------------------------\n",
+                $"Total:\t\t{cart.getTotalPrice()} SEK\n",
             };
             receipt.AddRange(receitPart2);
 
