@@ -160,11 +160,13 @@ namespace Restaurant_pos_classes
 
     public class Receipt
     {
+        long epochTime = DateTimeOffset.Now.ToUnixTimeSeconds();
+        DateTime currentDateTime = DateTime.Now;
         public void createReceipt(Cart cart)
         {
             string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
 
-            string filename = string.Format(@"C:\Users\{0}\Documents\restaurant-receipts\receipt_{1}.txt", userName, DateTimeOffset.Now.ToUnixTimeSeconds().ToString());
+            string filename = string.Format(@"C:\Users\{0}\Documents\restaurant-receipts\receipt_{1}.txt", userName, epochTime.ToString());
 
             if (!Directory.Exists(string.Format(@"c:\Users\{0}\Documents\restaurant-receipts\", userName)))
             {
@@ -179,10 +181,35 @@ namespace Restaurant_pos_classes
                 "Tel: (+46)63-055 55 55",
                 "Mail: info.bengans@gmail.com",
                 "Org. Nr: 234567-8901\n",
+                $"{currentDateTime.ToString("s").Replace("T", " ")}",
                 $"Säljare: {"Bengan"}",
-                $"Kvitto Nr: {DateTimeOffset.Now.ToUnixTimeSeconds()}",
+                $"Kvitto Nr: {epochTime}",
                 "-----------------------------------------------------\n",
             };
+
+
+            decimal vat25 = 0m;
+            decimal vat12 = 0m;
+            decimal vat0 = 0m;
+
+            foreach (Product product in cart.getCart())
+            {
+                switch (product.tax)
+                {
+                    case 0.25m:
+                        vat25 += product.getPrice() - product.getPriceNoTax(); // 1.25m;
+                        break;
+                    case 0.12m:
+                        vat12 += product.getPrice() - product.getPriceNoTax(); // 1.12m;
+                        break;
+                    default:
+                        vat0 += product.getPrice() - product.getPriceNoTax();
+                        break;
+                }
+            }
+
+            decimal netPrice = vat25 + vat12 + vat0;
+            decimal totalVat = (vat25 * 0.25m) + (vat12 * 0.12m);
 
             foreach (Product product in cart.getCart())
             {
@@ -190,7 +217,18 @@ namespace Restaurant_pos_classes
                 receipt.Add("\t1x " + product.name + " " + product.getPrice() + " kr (with " + product.tax * 100 + "% tax)");
             }
             receipt.Add("\n-----------------------------------------------------\n");
-            receipt.Add("Total price: " + cart.getTotalPrice().ToString() + " kr");
+
+            List<string> receitPart2 = new List<string>()
+            {
+                "-----------------------------------------------------\n",
+                "Momsunderlag:",
+                $"Moms 25%\t{vat25.ToString("0.00")} SEK",
+                $"Moms 12%\t{vat12.ToString("0.00")} SEK",
+                $"Momsfritt\t{vat0.ToString("0.00")} SEK\n",
+                $"SUMMA:\t\t{cart.getTotalPrice()} SEK\n",
+                "-----------------------------------------------------\n",
+            };
+            receipt.AddRange(receitPart2);
 
             using (StreamWriter sw = File.CreateText(filename))
             { 
