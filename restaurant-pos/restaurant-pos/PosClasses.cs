@@ -1,5 +1,31 @@
-﻿namespace Restaurant_pos_classes
+﻿using Microsoft.Data.Sqlite;
+
+namespace Restaurant_pos_classes
 {
+    public class Database
+    {
+        private string username { get; set; }
+        private string path { get; set; }
+        private string filename { get; set; }
+        private string fullpath { get; set; }
+        public Database(string filename) 
+        {
+            this.username = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
+            this.path = string.Format(@"C:\Users\{0}\Documents\restaurant-receipts", username);
+            this.filename = filename;
+            this.fullpath = path + @"\" + this.filename;
+
+            // Create directory if it doesn't exist when creating new object instance
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            
+        }
+
+    }
+
     public class Cart
     {
         int tableNumber;
