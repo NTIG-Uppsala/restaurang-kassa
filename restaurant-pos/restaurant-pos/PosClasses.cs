@@ -171,9 +171,35 @@
                 Directory.CreateDirectory(string.Format(@"c:\Users\{0}\Documents\restaurant-receipts\", userName));
             }
 
+            List<string> receipt = new List<string>()
+            {
+                "Bengans Burgeria",
+                "Fjällgatan 32H",
+                "981 39 Jönköping\n",
+                "Tel: (+46)63-055 55 55",
+                "Mail: info.bengans@gmail.com",
+                "Org. Nr: 234567-8901\n",
+                $"Säljare: {"Bengan"}",
+                $"{DateTimeOffset.Now.ToUnixTimeSeconds().ToString("s").Replace("T", " ")}",
+                $"Kvitto Nr: {DateTimeOffset.Now.ToUnixTimeSeconds()}",
+                "-----------------------------------------------------\n",
+            };
 
-            //string path = @"C:\Users\Nikole\Documents\test.txt";
-            //string path = @"" + DateTimeOffset.Now.ToUnixTimeSeconds().ToString() + ".txt";
+            /*List<string> receitPart2 = new List<string>()
+            {
+                "-----------------------------------------------------\n",
+                "Momsunderlag:",
+                $"Moms 25%\t{vat25.ToString("0.00")} SEK",
+                $"Moms 12%\t{vat12.ToString("0.00")} SEK",
+                $"Nettopris:\t{netPrice.ToString("0.00")} SEK",
+                $"Total moms:\t{totalVat.ToString("0.00")} SEK\n",
+                $"SUMMA:\t\t{totalSum.ToString("0.00")} SEK\n",
+                "-----------------------------------------------------\n",
+                "Kortbetalningsinformation finns på annat kvitto.\n",
+                "Öppet köp gäller endast biljett, fram till 24 timmar",
+                "innan visning",
+            };*/
+
             using (StreamWriter sw = File.CreateText(filename));
         }
     }
