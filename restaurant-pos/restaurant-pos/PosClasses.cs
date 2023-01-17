@@ -1,4 +1,6 @@
-﻿namespace Restaurant_pos_classes
+﻿using System.Diagnostics;
+
+namespace Restaurant_pos_classes
 {
     public class Cart
     {
@@ -64,8 +66,6 @@
             bool isPaid = true;
             this.clearCart();
 
-            Receipt receipt = new Receipt();
-            receipt.createReceipt();
 
             return isPaid;
         }
@@ -160,7 +160,7 @@
 
     public class Receipt
     {
-        public void createReceipt()
+        public void createReceipt(Cart cart)
         {
             string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
 
@@ -180,27 +180,24 @@
                 "Mail: info.bengans@gmail.com",
                 "Org. Nr: 234567-8901\n",
                 $"Säljare: {"Bengan"}",
-                $"{DateTimeOffset.Now.ToUnixTimeSeconds().ToString("s").Replace("T", " ")}",
                 $"Kvitto Nr: {DateTimeOffset.Now.ToUnixTimeSeconds()}",
                 "-----------------------------------------------------\n",
             };
 
-            /*List<string> receitPart2 = new List<string>()
+            foreach (Product product in cart.getCart())
             {
-                "-----------------------------------------------------\n",
-                "Momsunderlag:",
-                $"Moms 25%\t{vat25.ToString("0.00")} SEK",
-                $"Moms 12%\t{vat12.ToString("0.00")} SEK",
-                $"Nettopris:\t{netPrice.ToString("0.00")} SEK",
-                $"Total moms:\t{totalVat.ToString("0.00")} SEK\n",
-                $"SUMMA:\t\t{totalSum.ToString("0.00")} SEK\n",
-                "-----------------------------------------------------\n",
-                "Kortbetalningsinformation finns på annat kvitto.\n",
-                "Öppet köp gäller endast biljett, fram till 24 timmar",
-                "innan visning",
-            };*/
+                receipt.Add("\n-----------------------------------------------------\n");
+                receipt.Add("\t1x " + product.name + " " + product.getPrice() + " kr (with " + product.tax * 100 + "% tax)");
+            }
+            receipt.Add("\n-----------------------------------------------------\n");
+            receipt.Add("Total price: " + cart.getTotalPrice().ToString() + " kr");
 
-            using (StreamWriter sw = File.CreateText(filename));
+            using (StreamWriter sw = File.CreateText(filename))
+            { 
+            foreach (string stringPart in receipt)
+                { sw.WriteLine(stringPart); }
+                sw.Close(); 
+            }
         }
     }
 }

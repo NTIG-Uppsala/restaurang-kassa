@@ -21,6 +21,7 @@ namespace Restaurant_pos_program
             // To see that you can add items to cart
             menu.addProduct("BUN","It maybe a 'bulle'", 10, 0.12m);
             menu.addProduct("COFFE", "COFFE contains coffee", 10, 0.12m);
+            menu.addProduct("Mariestads Långhals", "Storstark :)", 750, 0.25m);
             while (isRunning)
             {
                 
@@ -88,6 +89,8 @@ namespace Restaurant_pos_program
             string paymentAccept = getInput("Accept? (y/n)");
             if (paymentAccept == "y" || paymentAccept == "yes")
             {
+                Receipt receipt = new Receipt();
+                receipt.createReceipt(cart);
                 cart.pay();
                 Console.WriteLine("Paid");
             }
