@@ -2,7 +2,6 @@
 using System.IO;
 using Microsoft.Data.Sqlite;
 
-
 namespace Restaurant_pos_classes
 {
     public class Database
@@ -11,14 +10,15 @@ namespace Restaurant_pos_classes
         private string path { get; set; }
         private string filename { get; set; }
         private string fullpath { get; set; }
-        public Database(string filename) 
+        public string connectionString { get; set; }
+        public Database(string filename="database.db") 
         {
             this.username = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
             this.path = string.Format(@"C:\Users\{0}\Documents\restaurant-database", username);
             this.filename = filename;
             this.fullpath = path + @"\" + this.filename;
 
-            var connectionString = new SqliteConnectionStringBuilder()
+            connectionString = new SqliteConnectionStringBuilder()
             {
                 Mode = SqliteOpenMode.ReadWriteCreate,
                 DataSource = fullpath
@@ -29,7 +29,11 @@ namespace Restaurant_pos_classes
             {
                 Directory.CreateDirectory(path);
             }
+        }
 
+        public void GetProducts() 
+        {
+            // SELECT * FROM Products;
             using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
@@ -37,74 +41,20 @@ namespace Restaurant_pos_classes
                 var command = connection.CreateCommand();
                 command.CommandText =
                 @"
-                    CREATE TABLE user (
-                        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                        name TEXT NOT NULL
-                    );
-                    INSERT INTO user
-                    VALUES (1, 'Brice'),
-                           (2, 'Alexander'),
-                           (3, 'Nate');
+                    SELECT *
+                    FROM Products
                 ";
-                command.ExecuteNonQuery();
-
-                Console.Write("Name: ");
-                var name = Console.ReadLine();
-
-                #region snippet_Parameter
-                command.CommandText =
-                @"
-                    INSERT INTO user (name)
-                    VALUES ($name)
-                ";
-                command.Parameters.AddWithValue("$name", name);
-                #endregion
-                command.ExecuteNonQuery();
-
-                command.CommandText =
-                @"
-                    SELECT last_insert_rowid()
-                ";
-                var newId = (long)command.ExecuteScalar();
-
-                Console.WriteLine($"Your new user ID is {newId}.");
-            }
-
-            Console.Write("User ID: ");
-            var id = int.Parse(Console.ReadLine());
-
-            #region snippet_HelloWorld
-            using (var connection = new SqliteConnection(connectionString))
-            {
-                connection.Open();
-
-                var command = connection.CreateCommand();
-                command.CommandText =
-                @"
-                    SELECT name
-                    FROM user
-                    WHERE id = $id
-                ";
-                command.Parameters.AddWithValue("$id", id);
 
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        var name = reader.GetString(0);
-
+                        var name = reader.GetString(2);
+                        
                         Console.WriteLine($"Hello, {name}!");
                     }
                 }
             }
-            #endregion
-
-        }
-
-        public List<Product> GetProducts() 
-        {
-            // SELECT * FROM Products;
-            return new List<Product>();
         }
 
     }

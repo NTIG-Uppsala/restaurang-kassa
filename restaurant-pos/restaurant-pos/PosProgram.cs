@@ -18,13 +18,13 @@ namespace Restaurant_pos_program
         {
             Menu menu = new();
             Cart cart = new(1);
-            Database database = new("filename.db");
+            Database database = new("database.db");
             // To see that you can add items to cart
-            var res = database.GetProducts();
-            foreach(Product product in res)
+            database.GetProducts();
+            /*foreach(Product product in res)
             {
                 menu.AddProduct(product.name, product.description, product.price, product.tax);
-            }
+            }*/
 
             while (isRunning)
             {
