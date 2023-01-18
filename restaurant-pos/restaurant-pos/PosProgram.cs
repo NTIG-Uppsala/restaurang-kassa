@@ -1,4 +1,7 @@
 ﻿using Restaurant_pos_classes;
+using System.Diagnostics;
+using System.Xml.Linq;
+
 namespace Restaurant_pos_program
 {
     class Program
@@ -20,11 +23,12 @@ namespace Restaurant_pos_program
             Cart cart = new(1);
             Database database = new("database.db");
             // To see that you can add items to cart
-            database.GetProducts();
-            /*foreach(Product product in res)
+            List<Product> productsFromDatabase = database.GetProducts();
+
+            foreach (Product product in productsFromDatabase)
             {
                 menu.AddProduct(product.name, product.description, product.price, product.tax);
-            }*/
+            }
 
             while (isRunning)
             {

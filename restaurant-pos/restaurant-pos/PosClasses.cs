@@ -57,13 +57,13 @@ namespace Restaurant_pos_classes
                         foreach (DataRow row in datatable.Rows)
                         {
                             Int64 id = (Int64)row["id"];
-                            decimal price = (decimal)row["price"];
+                            decimal price = Convert.ToDecimal(row["price"]);
                             string name = (string)row["name"];
                             string description = (string)row["description"];
-                            decimal tax = (decimal)row["taxID"];
-                            Console.WriteLine(id + price + name + description + tax);
-
-                            Product product = new Product(id, name, description, price, 0.12m);
+                            decimal tax = Convert.ToDecimal(row["value"]);
+                            
+                            Product product = new Product(id, name, description, price, tax);
+                            
                             OutputList.Add(product);
 
                         }
