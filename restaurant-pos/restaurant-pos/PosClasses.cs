@@ -18,13 +18,19 @@ namespace Restaurant_pos_classes
             this.filename = filename;
             this.fullpath = path + @"\" + this.filename;
 
+            var connectionString = new SqliteConnectionStringBuilder()
+            {
+                Mode = SqliteOpenMode.ReadWriteCreate,
+                DataSource = fullpath
+            }.ToString();
+
             // Create directory if it doesn't exist when creating new object instance
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            using (var connection = new SqliteConnection($"Data Source={fullpath}"))
+            using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
 
@@ -68,7 +74,7 @@ namespace Restaurant_pos_classes
             var id = int.Parse(Console.ReadLine());
 
             #region snippet_HelloWorld
-            using (var connection = new SqliteConnection($"Data Source={fullpath}"))
+            using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
 
@@ -92,6 +98,13 @@ namespace Restaurant_pos_classes
                 }
             }
             #endregion
+
+        }
+
+        public List<Product> GetProducts() 
+        {
+            // SELECT * FROM Products;
+            return new List<Product>();
         }
 
     }

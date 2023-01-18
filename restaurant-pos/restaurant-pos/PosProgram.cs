@@ -20,9 +20,12 @@ namespace Restaurant_pos_program
             Cart cart = new(1);
             Database database = new("filename.db");
             // To see that you can add items to cart
-            menu.AddProduct("BUN","It maybe a 'bulle'", 10, 0.12m);
-            menu.AddProduct("COFFE", "COFFE contains coffee", 10, 0.12m);
-            menu.AddProduct("Mariestads Långhals", "Storstark :)", 750, 0.25m);
+            var res = database.GetProducts();
+            foreach(Product product in res)
+            {
+                menu.AddProduct(product.name, product.description, product.price, product.tax);
+            }
+
             while (isRunning)
             {
                 
