@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Data;
+using System.Diagnostics;
 using System.IO;
+using System.Xml.Linq;
 using Microsoft.Data.Sqlite;
 
 namespace Restaurant_pos_classes
@@ -31,30 +34,44 @@ namespace Restaurant_pos_classes
             }
         }
 
-        public void GetProducts() 
+        public List<Product> GetProducts() 
         {
+            List<Product> OutputList = new();
             // SELECT * FROM Products;
             using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
-
                 var command = connection.CreateCommand();
                 command.CommandText =
                 @"
-                    SELECT *
-                    FROM Products
+                    SELECT p.id, p.price, p.name, p.description, t.value
+                    FROM Products p 
+	                    INNER JOIN Tax t ON ( t.id = p.taxID  )  
                 ";
 
                 using (var reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    using (DataTable datatable = new())
                     {
-                        var name = reader.GetString(2);
-                        
-                        Console.WriteLine($"Hello, {name}!");
+                        datatable.Load(reader);
+                        foreach (DataRow row in datatable.Rows)
+                        {
+                            Int64 id = (Int64)row["id"];
+                            decimal price = (decimal)row["price"];
+                            string name = (string)row["name"];
+                            string description = (string)row["description"];
+                            decimal tax = (decimal)row["taxID"];
+                            Console.WriteLine(id + price + name + description + tax);
+
+                            Product product = new Product(id, name, description, price, 0.12m);
+                            OutputList.Add(product);
+
+                        }
                     }
                 }
+            connection.Close();
             }
+            return OutputList;
         }
 
     }
@@ -62,10 +79,10 @@ namespace Restaurant_pos_classes
 
     public class Cart
     {
-        int tableNumber;
+        Int64 tableNumber;
         private List<Product> items = new List<Product>();
 
-        public Cart(int tableNumber)
+        public Cart(Int64 tableNumber)
         {
             this.tableNumber = tableNumber;
         }
@@ -83,7 +100,7 @@ namespace Restaurant_pos_classes
             return total;
         }
 
-        public void AddProduct(int productID, Menu productMenu)
+        public void AddProduct(Int64 productID, Menu productMenu)
         {
             // Method to add a product from the menu to the cart
 
@@ -99,7 +116,7 @@ namespace Restaurant_pos_classes
             }
         }
 
-        public void RemoveProduct(int productID)
+        public void RemoveProduct(Int64 productID)
         {
             // Removes a product from the cart     
 
@@ -141,13 +158,13 @@ namespace Restaurant_pos_classes
 
     public class Product
     {
-        public int id { get; set; }
+        public Int64 id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public decimal price { get; set; }
         public decimal tax { get; set; }
 
-        public Product(int id, string name, string description, decimal price, decimal tax)
+        public Product(Int64 id, string name, string description, decimal price, decimal tax)
         {
             this.id = id;
             this.name = name;
@@ -186,10 +203,10 @@ namespace Restaurant_pos_classes
 
             // Gets id of last item in menu if menu has items and adds 1 to it. 
             // If the menu has no items, just set the id to 0
-            int last_avaliable_product_id = 0;
+            Int64 last_avaliable_product_id = 0;
             if (menuItems.Count > 0)
             {
-                int last_product_id = menuItems.Last().id;
+                Int64 last_product_id = menuItems.Last().id;
                 last_avaliable_product_id = last_product_id + 1;
             }
 
@@ -198,7 +215,7 @@ namespace Restaurant_pos_classes
             menuItems.Add(new_product);
         }
 
-        public void RemoveProduct(int id)
+        public void RemoveProduct(Int64 id)
         {
             foreach (Product product in this.menuItems)
             {
