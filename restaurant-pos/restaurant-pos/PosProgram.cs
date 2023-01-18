@@ -6,9 +6,9 @@ namespace Restaurant_pos_program
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            PosProgram program = new PosProgram();
+            PosProgram program = new();
             program.Loop();
         }
     }
@@ -17,19 +17,20 @@ namespace Restaurant_pos_program
     {
 
         bool isRunning = true;
+        Menu menu;
+        Cart cart;
+        Database database;
+
+        public PosProgram()
+        {
+            menu = new();
+            cart = new(1);
+            database = new();
+            LoadDatabaseProducts();
+        }
+
         public void Loop()
         {
-            Menu menu = new();
-            Cart cart = new(1);
-            Database database = new("database.db");
-            // To see that you can add items to cart
-            List<Product> productsFromDatabase = database.GetProducts();
-
-            foreach (Product product in productsFromDatabase)
-            {
-                menu.AddProduct(product.name, product.description, product.price, product.tax);
-            }
-
             while (isRunning)
             {
                 
@@ -67,6 +68,15 @@ namespace Restaurant_pos_program
                 }
             }
         }
+        void LoadDatabaseProducts()
+        {
+            List<Product> productsFromDatabase = database.GetProducts();
+
+            foreach (Product product in productsFromDatabase)
+            {
+                menu.AddProduct(product.name, product.description, product.price, product.tax);
+            }
+        }
 
         void add(Menu menu, Cart cart)
         {
@@ -97,7 +107,7 @@ namespace Restaurant_pos_program
             string paymentAccept = GetInput("Accept? (y/n)");
             if (paymentAccept == "y" || paymentAccept == "yes")
             {
-                Receipt receipt = new Receipt();
+                Receipt receipt = new();
                 receipt.CreateReceipt(cart);
                 cart.Pay();
                 Console.WriteLine("Paid");
