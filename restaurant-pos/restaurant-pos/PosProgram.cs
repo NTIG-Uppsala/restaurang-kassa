@@ -1,5 +1,4 @@
-﻿using Restaurant_pos_classes;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Xml.Linq;
 
 namespace Restaurant_pos_program
