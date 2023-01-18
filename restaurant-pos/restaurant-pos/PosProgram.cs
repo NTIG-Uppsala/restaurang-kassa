@@ -18,6 +18,7 @@ namespace Restaurant_pos_program
         {
             Menu menu = new();
             Cart cart = new(1);
+            Database database = new("filename.db");
             // To see that you can add items to cart
             menu.AddProduct("BUN","It maybe a 'bulle'", 10, 0.12m);
             menu.AddProduct("COFFE", "COFFE contains coffee", 10, 0.12m);

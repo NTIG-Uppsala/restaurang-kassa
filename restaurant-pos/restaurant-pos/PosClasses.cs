@@ -1,4 +1,7 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using System;
+using System.IO;
+using Microsoft.Data.Sqlite;
+
 
 namespace Restaurant_pos_classes
 {
@@ -11,7 +14,7 @@ namespace Restaurant_pos_classes
         public Database(string filename) 
         {
             this.username = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
-            this.path = string.Format(@"C:\Users\{0}\Documents\restaurant-receipts", username);
+            this.path = string.Format(@"C:\Users\{0}\Documents\restaurant-database", username);
             this.filename = filename;
             this.fullpath = path + @"\" + this.filename;
 
@@ -21,10 +24,78 @@ namespace Restaurant_pos_classes
                 Directory.CreateDirectory(path);
             }
 
-            
+            using (var connection = new SqliteConnection($"Data Source={fullpath}"))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    CREATE TABLE user (
+                        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                        name TEXT NOT NULL
+                    );
+                    INSERT INTO user
+                    VALUES (1, 'Brice'),
+                           (2, 'Alexander'),
+                           (3, 'Nate');
+                ";
+                command.ExecuteNonQuery();
+
+                Console.Write("Name: ");
+                var name = Console.ReadLine();
+
+                #region snippet_Parameter
+                command.CommandText =
+                @"
+                    INSERT INTO user (name)
+                    VALUES ($name)
+                ";
+                command.Parameters.AddWithValue("$name", name);
+                #endregion
+                command.ExecuteNonQuery();
+
+                command.CommandText =
+                @"
+                    SELECT last_insert_rowid()
+                ";
+                var newId = (long)command.ExecuteScalar();
+
+                Console.WriteLine($"Your new user ID is {newId}.");
+            }
+
+            Console.Write("User ID: ");
+            var id = int.Parse(Console.ReadLine());
+
+            #region snippet_HelloWorld
+            using (var connection = new SqliteConnection($"Data Source={fullpath}"))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    SELECT name
+                    FROM user
+                    WHERE id = $id
+                ";
+                command.Parameters.AddWithValue("$id", id);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var name = reader.GetString(0);
+
+                        Console.WriteLine($"Hello, {name}!");
+                    }
+                }
+            }
+            #endregion
         }
 
     }
+
 
     public class Cart
     {
@@ -241,10 +312,10 @@ namespace Restaurant_pos_classes
             receipt.Add("981 39 Jönköping\n");
             receipt.Add("Tel: (+46)63-055 55 55");
             receipt.Add("Mail: info.bengans@gmail.com");
-            receipt.Add("Org. Nr: 234567-8901\n");
+            receipt.Add("Org. Nr.: 234567-8901\n");
             receipt.Add($"{currentDateTime.ToString("s").Replace("T", " ")}");
-            receipt.Add($"Säljare: {"Bengan"}");
-            receipt.Add($"Kvitto Nr: {epochTime}");
+            receipt.Add($"Seller: {"Bengan"}");
+            receipt.Add($"Receipt Nr.: {epochTime}");
             receipt.Add("-----------------------------------------------------\n");
 
 
