@@ -19,14 +19,14 @@
 
         public decimal GetPrice()
         {
-            // Calculates price of product with tax eg (100 * 1.25 -> 125 SEK)
-            return this.price * (1.0m + this.tax);
+            // Gets price including tax
+            return this.price;
         }
 
         public decimal GetPriceNoTax()
         {
-            // Calculates price of product without tax
-            return this.price;
+            // Calculates price of product without tax [priceWithTax - (priceWithTax*1/taxRate) ]
+            return this.price - this.price * (1 / (1.0m + this.tax));
         }
 
         public string GetStringPrice()

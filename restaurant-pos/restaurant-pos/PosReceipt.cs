@@ -37,20 +37,20 @@
                 switch (product.tax)
                 {
                     case 0.25m:
-                        vat25 += product.GetPrice() - product.GetPriceNoTax(); // 1.25m;
+                        vat25 += product.GetPriceNoTax(); // 1.25m;
                         break;
                     case 0.12m:
-                        vat12 += product.GetPrice() - product.GetPriceNoTax(); // 1.12m;
+                        vat12 += product.GetPriceNoTax(); // 1.12m;
                         break;
                     default:
-                        vat0 += product.GetPrice() - product.GetPriceNoTax();
+                        vat0 += product.GetPriceNoTax();
                         break;
                 }
             }
 
             decimal netPrice = vat25 + vat12 + vat0;
-            decimal totalVat = (vat25 * 0.25m) + (vat12 * 0.12m);
-
+            
+            string seller = "Bengan";
             /*
                 Contact information and receipt information
              */
@@ -61,7 +61,7 @@
             receipt.Add("Mail: info.bengans@gmail.com");
             receipt.Add("Org. Nr.: 234567-8901\n");
             receipt.Add($"{currentDateTime.ToString("s").Replace("T", " ")}");
-            receipt.Add($"Seller: {"Bengan"}");
+            receipt.Add($"Seller: {seller}");
             receipt.Add($"Receipt Nr.: {epochTime}");
             receipt.Add("-----------------------------------------------------\n");
 
@@ -85,9 +85,9 @@
             receipt.Add($"VAT 25%\t{vat25.ToString("0.00")} SEK");
             receipt.Add($"VAT 12%\t{vat12.ToString("0.00")} SEK");
             receipt.Add($"No VAT\t{vat0.ToString("0.00")} SEK\n");
-            receipt.Add($"VAT total\t{netPrice} SEK\n");
+            receipt.Add($"VAT total\t{netPrice.ToString("0.00")} SEK\n");
             receipt.Add("-----------------------------------------------------\n");
-            receipt.Add($"Total:\t\t{cart.GetTotalPrice()} SEK\n");
+            receipt.Add($"Total:\t\t{cart.GetTotalPrice().ToString("0.00")} SEK\n");
             receipt.Add("-----------------------------------------------------\n");
 
 
@@ -98,16 +98,16 @@
         void SaveReceiptToFile()
         {
             // Open ReadWrite Stream
-            using (StreamWriter sw = File.CreateText(fullpath))
+            using (StreamWriter fs = File.CreateText(fullpath))
             {
                 // Loop over recipet stringparts and write to file
                 foreach (string stringPart in receipt)
                 {
-                    sw.WriteLine(stringPart);
+                    fs.WriteLine(stringPart);
                 }
 
                 // Close Steam
-                sw.Close();
+                fs.Close();
             }
         }
     }
