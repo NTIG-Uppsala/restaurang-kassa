@@ -30,8 +30,56 @@ namespace Restaurant_pos_program
             }
         }
 
+
+        // SELECT * FROM Products WHERE id = ? AND price > ? , {"1", "123123"}
+        // INSERT INTO Receipts VALUES (?, ?, ?, ?,), {"value 1", "value 2", "value3"...}
+
+        // Method to be used to get values from table
+        private DataTable QueryDataGetter(string query, string[] queryParameters = null) 
+        { 
+            DataTable datatable = new DataTable();
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+
+                command.CommandText = query;
+
+                try
+                {
+                    if (queryParameters != null)
+                    {
+                        foreach (string param in queryParameters)
+                        {
+                            var p = new SqliteParameter();
+                            p.Value = param;
+
+                            command.Parameters.Add(p);
+                        }
+                    }
+                }
+                catch(Exception ex) 
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                    throw new Exception(ex.Message);
+                    return new DataTable();
+                }
+
+                // Execute Query and load into datatable
+                using (var reader = command.ExecuteReader())
+                {
+                    datatable.Load(reader);
+                }
+
+                connection.Close();
+            }
+
+            return datatable; 
+        }
+
         public List<Product> GetProducts()
         {
+
             List<Product> OutputList = new();
             // SELECT * FROM Products;
             using (var connection = new SqliteConnection(connectionString))
