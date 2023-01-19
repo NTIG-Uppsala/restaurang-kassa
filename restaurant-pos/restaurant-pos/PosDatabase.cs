@@ -32,10 +32,11 @@ namespace Restaurant_pos_program
 
 
         // SELECT * FROM Products WHERE id = ? AND price > ? , {"1", "123123"}
-        // INSERT INTO Receipts VALUES (?, ?, ?, ?,), {"value 1", "value 2", "value3"...}
+
+        // SELECT * FROM Products WHERE id = @product_id AND price > @product_max_price , {"1", "123123"}
 
         // Method to be used to get values from table
-        private DataTable QueryDataGetter(string query, string[] queryParameters = null) 
+        private DataTable QueryDataGetter(string query, List<string[]> queryParameters = null) 
         { 
             DataTable datatable = new DataTable();
             using (var connection = new SqliteConnection(connectionString))
@@ -49,11 +50,12 @@ namespace Restaurant_pos_program
                 {
                     if (queryParameters != null)
                     {
-                        foreach (string param in queryParameters)
+                        foreach (string[] param in queryParameters)
                         {
-                            var p = new SqliteParameter();
-                            p.Value = param;
+                            string paramName = param[0];
+                            string paramValue = param[1];
 
+                            var p = new SqliteParameter(paramName,  paramValue);
                             command.Parameters.Add(p);
                         }
                     }
@@ -62,7 +64,6 @@ namespace Restaurant_pos_program
                 {
                     System.Diagnostics.Debug.WriteLine(ex.Message);
                     throw new Exception(ex.Message);
-                    return new DataTable();
                 }
 
                 // Execute Query and load into datatable
@@ -81,40 +82,30 @@ namespace Restaurant_pos_program
         {
 
             List<Product> OutputList = new();
-            // SELECT * FROM Products;
-            using (var connection = new SqliteConnection(connectionString))
+            
+            string Query =
+            @"
+                SELECT p.id, p.price, p.name, p.description, t.value
+                FROM Products p 
+	                INNER JOIN Tax t ON ( t.id = p.taxID )
+            ";
+
+            DataTable databaseResult = QueryDataGetter(Query);
+                
+            foreach (DataRow row in databaseResult.Rows)
             {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText =
-                @"
-                    SELECT p.id, p.price, p.name, p.description, t.value
-                    FROM Products p 
-	                    INNER JOIN Tax t ON ( t.id = p.taxID  )  
-                ";
+                Int64 id = (Int64)row["id"];
+                decimal price = Convert.ToDecimal(row["price"]);
+                string name = (string)row["name"];
+                string description = (string)row["description"];
+                decimal tax = Convert.ToDecimal(row["value"]);
 
-                using (var reader = command.ExecuteReader())
-                {
-                    using (DataTable datatable = new())
-                    {
-                        datatable.Load(reader);
-                        foreach (DataRow row in datatable.Rows)
-                        {
-                            Int64 id = (Int64)row["id"];
-                            decimal price = Convert.ToDecimal(row["price"]);
-                            string name = (string)row["name"];
-                            string description = (string)row["description"];
-                            decimal tax = Convert.ToDecimal(row["value"]);
+                Product product = new Product(id, name, description, price, tax);
 
-                            Product product = new Product(id, name, description, price, tax);
+                OutputList.Add(product);
 
-                            OutputList.Add(product);
-
-                        }
-                    }
-                }
-                connection.Close();
             }
+                    
             return OutputList;
         }
 
