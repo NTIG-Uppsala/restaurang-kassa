@@ -26,7 +26,9 @@
             }
         }
 
-        public void CreateReceipt(Cart cart)
+
+
+        public List<string> CreateReceipt(Cart cart)
         {
             decimal vat25 = 0m;
             decimal vat12 = 0m;
@@ -49,7 +51,7 @@
             }
 
             decimal netPrice = vat25 + vat12 + vat0;
-            
+
             string seller = "Bengan";
             /*
                 Contact information and receipt information
@@ -93,6 +95,7 @@
 
             // Write Receipt to file
             SaveReceiptToFile();
+            return receipt;
         }
 
         void SaveReceiptToFile()
@@ -106,7 +109,9 @@
                     fs.WriteLine(stringPart);
                 }
 
-                // Close Steam
+
+
+                // Close Stream
                 fs.Close();
             }
         }

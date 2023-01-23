@@ -10,8 +10,8 @@ namespace Tests
         [TestMethod]
         public void TestAddProduct()
         {
-            Cart cart = new(1);
-            Menu menu = new();
+            Cart cart = new Cart(1);
+            Menu menu = new Menu();
             // add product named "test" to menu
             menu.AddProduct("test", "test description", 10, 0.12m);
 
@@ -32,8 +32,8 @@ namespace Tests
         public void TestGetTotalPrice()
         {
             // May need to be moved to a seperate method
-            Cart cart = new(1);
-            Menu menu = new();
+            Cart cart = new Cart(1);
+            Menu menu = new Menu();
             menu.AddProduct("test", "test description", 10, 0.12m);
             cart.AddProduct(0, menu);
 
@@ -43,8 +43,8 @@ namespace Tests
         [TestMethod]
         public void TestRemoveProduct()
         {
-            Cart cart = new(1);
-            Menu menu = new();
+            Cart cart = new Cart(1);
+            Menu menu = new Menu();
             menu.AddProduct("test", "test description", 10, 0.12m);
             var cartItems = cart.GetCart();
             cart.AddProduct(0, menu);
@@ -58,8 +58,8 @@ namespace Tests
         [TestMethod]
         public void TestPay()
         {
-            Cart cart = new(1);
-            Menu menu = new();
+            Cart cart = new Cart(1);
+            Menu menu = new Menu();
             menu.AddProduct("test", "test description", 10, 0.12m);
             var cartItems = cart.GetCart();
             cart.AddProduct(0, menu);
@@ -70,11 +70,11 @@ namespace Tests
             Assert.AreEqual(0, cartItems.Count);
         }
 
-        [TestMethod]
+     [TestMethod]
         public void TestClearCart()
         {
-            Cart cart = new(1);
-            Menu menu = new();
+            Cart cart = new Cart(1);
+            Menu menu = new Menu();
             menu.AddProduct("test", "test description", 10, 0.12m);
             var cartItems = cart.GetCart();
             cart.AddProduct(0, menu);
@@ -90,8 +90,8 @@ namespace Tests
         [TestMethod]
         public void TestGetCart()
         {
-            Cart cart = new(1);
-            Menu menu = new();
+            Cart cart = new Cart(1);
+            Menu menu = new Menu();
             menu.AddProduct("test", "test description", 10, 0.12m);
             menu.AddProduct("test2", "test description2", 20, 0.12m);
             cart.AddProduct(0, menu);
@@ -109,7 +109,7 @@ namespace Tests
         [TestMethod]
         public void TestAddProductMenu()
         {
-            Menu menu = new();
+            Menu menu = new Menu();
             menu.AddProduct("test", "test description", 10, 0.12m);
             Assert.AreEqual("test", menu.GetMenu()[0].name);
         }
@@ -117,7 +117,7 @@ namespace Tests
         [TestMethod]
         public void TestGetMenu()
         {
-            Menu menu = new();
+            Menu menu = new Menu();
             menu.AddProduct("test", "test description", 10, 0.12m);
             var menuItems = menu.GetMenu();
             Assert.AreEqual("test", menuItems[0].name);
@@ -127,7 +127,7 @@ namespace Tests
         [TestMethod]
         public void TestRemoveProductMenu()
         {
-            Menu menu = new();
+            Menu menu = new Menu();
             menu.AddProduct("test", "test description", 10, 0.12m);
             Assert.AreEqual(1, menu.GetMenu().Count());
             menu.RemoveProduct(0);
@@ -141,7 +141,7 @@ namespace Tests
         [TestMethod]
         public void TestGetPrice()
         {
-            Menu menu = new();
+            Menu menu = new Menu();
             menu.AddProduct("test", "test description", 10, 0.12m);
 
             Assert.AreEqual(10, menu.GetMenu()[0].GetPrice());
@@ -150,7 +150,7 @@ namespace Tests
         [TestMethod]
         public void TestGetTaxAmount()
         {
-            Menu menu = new();
+            Menu menu = new Menu();
             menu.AddProduct("test", "test description", 10, 0.25m);
 
             Assert.AreEqual(2, menu.GetMenu()[0].GetTaxAmount());
@@ -159,10 +159,29 @@ namespace Tests
         [TestMethod]
         public void TestGetStringPrice()
         {
-            Menu menu = new();
+            Menu menu = new Menu();
             menu.AddProduct("test", "test description", 10, 0.25m);
 
             Assert.AreEqual("10 SEK", menu.GetMenu()[0].GetStringPrice());
+        }
+    }
+
+
+
+    [TestClass]
+    public class TestReceipt
+    {
+        [TestMethod]
+        public void TestCreateReceipt()
+        {
+            Receipt receipt = new Receipt();
+            Cart cart = new Cart(1);
+            Menu menu = new Menu();
+            menu.AddProduct("test", "test description", 10, 0.12m);
+            cart.AddProduct(0, menu);
+
+            var receiptContents = receipt.CreateReceipt(cart);
+            Assert.IsTrue(receiptContents.Contains("Total:\t\t10,00 SEK\n"));
         }
     }
 }
