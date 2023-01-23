@@ -37,13 +37,13 @@
                 switch (product.tax)
                 {
                     case 0.25m:
-                        vat25 += product.GetPriceNoTax(); // 1.25m;
+                        vat25 += product.GetTaxAmount(); // 1.25m;
                         break;
                     case 0.12m:
-                        vat12 += product.GetPriceNoTax(); // 1.12m;
+                        vat12 += product.GetTaxAmount(); // 1.12m;
                         break;
                     default:
-                        vat0 += product.GetPriceNoTax();
+                        vat0 += product.GetTaxAmount();
                         break;
                 }
             }

@@ -23,7 +23,7 @@
             return this.price;
         }
 
-        public decimal GetPriceNoTax()
+        public decimal GetTaxAmount()
         {
             // Calculates price of product without tax [priceWithTax - (priceWithTax*1/taxRate) ]
             return this.price - this.price * (1 / (1.0m + this.tax));

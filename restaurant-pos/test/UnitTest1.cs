@@ -148,13 +148,13 @@ namespace Tests
         }
 
         [TestMethod]
-        public void TestGetPriceNoTax()
+        public void TestGetTaxAmount()
         {
             Menu menu = new();
             menu.AddProduct("test", "test description", 10, 0.25m);
-            Debug.WriteLine(menu.GetMenu()[0].GetPriceNoTax());
+            Debug.WriteLine(menu.GetMenu()[0].GetTaxAmount());
 
-            Assert.AreEqual(8, menu.GetMenu()[0].GetPriceNoTax());
+            Assert.AreEqual(2, menu.GetMenu()[0].GetTaxAmount());
         }
     }
 }
