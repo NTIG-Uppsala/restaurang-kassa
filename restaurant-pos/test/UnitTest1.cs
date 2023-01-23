@@ -152,9 +152,17 @@ namespace Tests
         {
             Menu menu = new();
             menu.AddProduct("test", "test description", 10, 0.25m);
-            Debug.WriteLine(menu.GetMenu()[0].GetTaxAmount());
 
             Assert.AreEqual(2, menu.GetMenu()[0].GetTaxAmount());
+        }
+
+        [TestMethod]
+        public void TestGetStringPrice()
+        {
+            Menu menu = new();
+            menu.AddProduct("test", "test description", 10, 0.25m);
+
+            Assert.AreEqual("10 SEK", menu.GetMenu()[0].GetStringPrice());
         }
     }
 }
