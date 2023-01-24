@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.IO;
 using Restaurant_pos_program;
 
 namespace Tests
@@ -12,13 +13,13 @@ namespace Tests
         {
             Cart cart = new Cart(1);
             Menu menu = new Menu();
-            // add product named "test" to menu
+            // Add product named "test" to menu
             menu.AddProduct("test", "test description", 10, 0.12m);
 
-            // add the first product in menu to cart
+            // Add the first product in menu to cart
             cart.AddProduct(0, menu);
 
-            // get what is in the cart
+            // Get what is in the cart
             var cartItems = cart.GetCart();
 
             Assert.AreEqual("test", cartItems[0].name);
@@ -37,6 +38,8 @@ namespace Tests
             menu.AddProduct("test", "test description", 10, 0.12m);
             cart.AddProduct(0, menu);
 
+            // The total price should be equal to 10
+            // Which is same as the only product that is added
             Assert.AreEqual(10, cart.GetTotalPrice());
         }
 
@@ -75,10 +78,13 @@ namespace Tests
         {
             Cart cart = new Cart(1);
             Menu menu = new Menu();
+
             menu.AddProduct("test", "test description", 10, 0.12m);
             var cartItems = cart.GetCart();
+
             cart.AddProduct(0, menu);
             cart.AddProduct(0, menu);
+
             Assert.AreEqual(2, cartItems.Count);
 
             // Add 2 products then clear cart
@@ -92,11 +98,14 @@ namespace Tests
         {
             Cart cart = new Cart(1);
             Menu menu = new Menu();
+
             menu.AddProduct("test", "test description", 10, 0.12m);
             menu.AddProduct("test2", "test description2", 20, 0.12m);
+
             cart.AddProduct(0, menu);
             cart.AddProduct(1, menu);
             var cartItems = cart.GetCart();
+
             Assert.AreEqual(2, cartItems.Count);
             Assert.AreEqual("test", cartItems[0].name);
             Assert.AreEqual("test2", cartItems[1].name);
@@ -120,6 +129,7 @@ namespace Tests
             Menu menu = new Menu();
             menu.AddProduct("test", "test description", 10, 0.12m);
             var menuItems = menu.GetMenu();
+
             Assert.AreEqual("test", menuItems[0].name);
             Assert.AreEqual("test description", menuItems[0].description);
         }
@@ -166,8 +176,6 @@ namespace Tests
         }
     }
 
-
-
     [TestClass]
     public class TestReceipt
     {
@@ -177,11 +185,28 @@ namespace Tests
             Receipt receipt = new Receipt();
             Cart cart = new Cart(1);
             Menu menu = new Menu();
+
             menu.AddProduct("test", "test description", 10, 0.12m);
             cart.AddProduct(0, menu);
 
             var receiptContents = receipt.CreateReceipt(cart);
             Assert.IsTrue(receiptContents.Contains("Total:\t\t10,00 SEK\n"));
+        }
+
+        [TestMethod]
+        public void TestSaveReceiptToFile()
+        {
+            Receipt receipt = new Receipt();
+            Cart cart = new Cart(1);
+
+            var epochTime = DateTimeOffset.Now.ToUnixTimeSeconds();
+            var username = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
+            var path = string.Format(@"C:\Users\{0}\Documents\restaurant-receipts\", username);
+            receipt.CreateReceipt(cart);
+            Debug.WriteLine(path + "receipt_" + epochTime + ".txt");
+
+            Assert.IsTrue(File.Exists(path + "receipt_"+epochTime+".txt"));
+            //Assert.IsTrue(!Directory.Exists(fullpath));
         }
     }
 }

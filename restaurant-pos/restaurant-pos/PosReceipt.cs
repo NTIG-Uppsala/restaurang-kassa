@@ -51,8 +51,8 @@
             }
 
             decimal netPrice = vat25 + vat12 + vat0;
-
             string seller = "Bengan";
+
             /*
                 Contact information and receipt information
              */
@@ -67,7 +67,6 @@
             receipt.Add($"Receipt Nr.: {epochTime}");
             receipt.Add("-----------------------------------------------------\n");
 
-
             /*
                 Product information and price
              */
@@ -77,7 +76,6 @@
                 receipt.Add("\t1x " + product.name + " " + product.GetStringPrice() + " (with " + product.tax * 100 + "% tax)"); ;
             }
             receipt.Add("\n-----------------------------------------------------\n");
-
 
             /*
                Vat basis and total
@@ -91,7 +89,6 @@
             receipt.Add("-----------------------------------------------------\n");
             receipt.Add($"Total:\t\t{cart.GetTotalPrice().ToString("0.00")} SEK\n");
             receipt.Add("-----------------------------------------------------\n");
-
 
             // Write Receipt to file
             SaveReceiptToFile();
@@ -108,8 +105,6 @@
                 {
                     fs.WriteLine(stringPart);
                 }
-
-
 
                 // Close Stream
                 fs.Close();
