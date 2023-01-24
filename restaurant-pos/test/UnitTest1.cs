@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.IO;
+using Microsoft.Data.Sqlite;
 using Restaurant_pos_program;
 
 namespace Tests
@@ -199,14 +200,43 @@ namespace Tests
             Receipt receipt = new Receipt();
             Cart cart = new Cart(1);
 
-            var epochTime = DateTimeOffset.Now.ToUnixTimeSeconds();
-            var username = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
-            var path = string.Format(@"C:\Users\{0}\Documents\restaurant-receipts\", username);
             receipt.CreateReceipt(cart);
-            Debug.WriteLine(path + "receipt_" + epochTime + ".txt");
 
-            Assert.IsTrue(File.Exists(path + "receipt_"+epochTime+".txt"));
+            Assert.IsTrue(File.Exists(receipt.fullpath));
             //Assert.IsTrue(!Directory.Exists(fullpath));
+        }
+    }
+    
+    [TestClass]
+    public class TestDatabase
+    {
+        [TestMethod]
+        public void TestQueryDataGetter()
+        {
+            Database database = new Database();
+
+            using (var connection = new SqliteConnection(database.connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+
+                command.CommandText = "INSERT INTO Products (price, name, description, taxID) VALUES (?,?,?,?)";
+                command.Parameters.Add("1500");
+                command.Parameters.Add("TEST PRODUCT");
+                command.Parameters.Add("YOU HAVE TO REMOVE ME, PLEASE! END IT! PLEASE! I AM BEGGING...");
+                command.Parameters.Add("2");
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+
+            }
+            //Assert.IsTrue(true);
         }
     }
 }

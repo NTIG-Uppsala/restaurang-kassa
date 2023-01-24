@@ -5,10 +5,10 @@ namespace Restaurant_pos_program
 {
     public class Database
     {
-        private string username { get; set; }
-        private string path { get; set; }
-        private string filename { get; set; }
-        private string fullpath { get; set; }
+        public string username { get; set; }
+        public string path { get; set; }
+        public string filename { get; set; }
+        public string fullpath { get; set; }
         public string connectionString { get; set; }
         public Database(string filename = "database.db")
         {
@@ -108,7 +108,6 @@ namespace Restaurant_pos_program
                     
             return OutputList;
         }
-
     }
 
 
