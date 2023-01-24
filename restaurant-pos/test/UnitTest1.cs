@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.IO;
 using Microsoft.Data.Sqlite;
 using Restaurant_pos_program;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Tests
 {
@@ -220,23 +221,59 @@ namespace Tests
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = "INSERT INTO Products (price, name, description, taxID) VALUES (?,?,?,?)";
+                /*command.CommandText = "INSERT INTO Products (price, name, description, taxID) VALUES (1500,TEST PRODUCT,YOU HAVE TO REMOVE ME, PLEASE! END IT! PLEASE! I AM BEGGING...,2)";
                 command.Parameters.Add("1500");
                 command.Parameters.Add("TEST PRODUCT");
                 command.Parameters.Add("YOU HAVE TO REMOVE ME, PLEASE! END IT! PLEASE! I AM BEGGING...");
                 command.Parameters.Add("2");
 
+                var p = new SqliteParameter("price", 15);
+                command.Parameters.Add(p);
+*/
+                command.CommandText = $"INSERT INTO \"main\".\"Products\"\r\n(\"price\", \"name\", \"description\", \"taxID\")\r\nVALUES (15, 'TEST PRODUCT', 'TEST PRODUCT REMOVE IF SEEN', 2);";
+
+                Product product = new Product(719000, "TEST PRODUCT", "TEST PRODUCT REMOVE IF SEEN", 15, 0.12m);
+
                 try
                 {
                     command.ExecuteNonQuery();
+                    List<Product> productsFromDatabase = database.GetProducts();
+                    foreach (Product databaseProduct in productsFromDatabase)
+                    {
+                        if (databaseProduct.name != product.name) { continue; }
+                        else
+                        {
+                            Assert.IsTrue(true);
+                            break;
+                        }
+                    }
+                    command.CommandText = $"DELETE FROM 'Products' WHERE 'name' = 'TEST PRODUCT'";
+
+                    command.ExecuteNonQuery();
+
+                    productsFromDatabase = database.GetProducts();
+                    connection.Close();
+
+                    foreach (Product databaseProduct in productsFromDatabase)
+                    {
+                        if (databaseProduct.name == product.name) 
+                        { 
+                            Assert.IsTrue(false); 
+                        }
+                        else
+                        {
+                            Assert.IsTrue(true);
+                            break;
+                        }
+                    }
+
+
                 }
                 catch (Exception ex)
                 {
                     throw new Exception(ex.Message);
                 }
-
             }
-            //Assert.IsTrue(true);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Data;
+using System.Diagnostics;
 
 namespace Restaurant_pos_program
 {
@@ -74,7 +75,6 @@ namespace Restaurant_pos_program
 
                 connection.Close();
             }
-
             return datatable; 
         }
 
@@ -89,7 +89,7 @@ namespace Restaurant_pos_program
                 FROM Products p 
 	                INNER JOIN Tax t ON ( t.id = p.taxID )
             ";
-
+            
             DataTable databaseResult = QueryDataGetter(Query);
                 
             foreach (DataRow row in databaseResult.Rows)
