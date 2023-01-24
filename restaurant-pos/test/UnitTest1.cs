@@ -247,7 +247,7 @@ namespace Tests
                             break;
                         }
                     }
-                    command.CommandText = $"DELETE FROM 'Products' WHERE 'name' = 'TEST PRODUCT'";
+                    command.CommandText = $"DELETE FROM  \"main\".\"Products\"  WHERE \"name\" = \"TEST PRODUCT\"";
 
                     command.ExecuteNonQuery();
 
