@@ -39,17 +39,17 @@ public partial class MainWindow : Window
         {
             InitializeComponent();
             LoadDatabaseProducts();
-            additems();
+            GenerateItemButtons();
         }
 
-        public void additems()
+        public void GenerateItemButtons()
         {
             int i = 0;
             foreach (Product product in menu.GetMenu())
             {
                 var button = new ProductButton(product);
                 button.Content = product.name;
-                button.Name = $"button_{i.ToString()}";
+                button.Name = $"button_{i}";
                 
                 button.Click += updateCheckout;
 
@@ -69,14 +69,14 @@ public partial class MainWindow : Window
             }
             cart.AddProduct(Convert.ToInt64(button.Name.TrimStart('b', 'u', 't', 'o', 'n', '_')), menu);
             totalPrice.Content = "Total Price: " + cart.GetTotalPrice();
-            listBox1.Items.Add(button.Content);
+            cartBox.Items.Add(button.Content);
         }
         private void Pay(object sender, RoutedEventArgs e)
         {
             Receipt receipt= new Receipt();
             receipt.CreateReceipt(cart);
             cart.Pay();
-            listBox1.Items.Clear();
+            cartBox.Items.Clear();
             totalPrice.Content = "Total Price: " + cart.GetTotalPrice();
         }
 

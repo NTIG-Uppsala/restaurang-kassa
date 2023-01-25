@@ -7,12 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Pay" HorizontalAlignment="Left" Margin="540,274,0,0" VerticalAlignment="Top" Height="150" Width="250" Click="Pay"/>
-        <ListBox Margin="540,0,0,0" Name="listBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="260" Height="217">
+        <ListBox Name="itemButtonList" Margin="15,15,600,15"/>
+        <StackPanel HorizontalAlignment="Left" Margin="525,0,0,0" Orientation="Vertical" VerticalAlignment="Center">
+            <ListBox x:Name="cartBox" Width="260" Height="217"/>
 
-        </ListBox>
-        <Label Content="Total Price" Name="totalPrice" HorizontalAlignment="Left" Margin="540,237,0,0" VerticalAlignment="Top" Width="250"/>
-        <ListBox Name="itemButtonList" Margin="10,27,579,6"/>
+            <Label Content="Total Price" x:Name="totalPrice" Width="250"/>
+            <Button Content="Pay" Height="150" Width="250" Click="Pay"/>
+        </StackPanel>
 
     </Grid>
 </Window>
