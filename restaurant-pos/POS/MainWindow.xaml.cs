@@ -50,10 +50,12 @@ public partial class MainWindow : Window
                 var button = new ProductButton(product);
                 button.Content = product.name;
                 button.Name = $"button_{i}";
-                
+                button.Margin = new Thickness(20);
+                button.Padding = new Thickness(20);
+
                 button.Click += updateCheckout;
 
-                itemButtonList.Items.Add(button);
+                itemButtonList.Children.Add(button);
                 i++;
             }
         }
@@ -67,6 +69,7 @@ public partial class MainWindow : Window
             {
                 throw new NullReferenceException("sender is not ProductButton");
             }
+
             cart.AddProduct(Convert.ToInt64(button.Name.TrimStart('b', 'u', 't', 'o', 'n', '_')), menu);
             totalPrice.Content = "Total Price: " + cart.GetTotalPrice();
             cartBox.Items.Add(button.Content);
@@ -80,5 +83,9 @@ public partial class MainWindow : Window
             totalPrice.Content = "Total Price: " + cart.GetTotalPrice();
         }
 
+        private void itemButtonList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

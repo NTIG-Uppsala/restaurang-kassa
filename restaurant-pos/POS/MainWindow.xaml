@@ -6,14 +6,33 @@
         xmlns:local="clr-namespace:POS"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <ListBox Name="itemButtonList" Margin="15,15,600,15"/>
-        <StackPanel HorizontalAlignment="Left" Margin="525,0,0,0" Orientation="Vertical" VerticalAlignment="Center">
-            <ListBox x:Name="cartBox" Width="260" Height="217"/>
+    <Grid RenderTransformOrigin="0.471,0.485">
 
-            <Label Content="Total Price" x:Name="totalPrice" Width="250"/>
-            <Button Content="Pay" Height="150" Width="250" Click="Pay"/>
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+            <!-- Products in cart -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" FontSize="32" >
+            <StackPanel Name="itemButtonList" Grid.Column="0"/> <!-- Productlist -->
+        </ScrollViewer>
+
+        <Grid Grid.Column="1" Margin="15" HorizontalAlignment="right"> <!-- Cart -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" FontSize="32" > <!-- Products in cart -->
+                <StackPanel VerticalAlignment="top"> 
+                    <ListBox x:Name="cartBox" BorderThickness="0" HorizontalAlignment="Right" />
+                </StackPanel>
+            </ScrollViewer>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Grid.Row="1" HorizontalAlignment="Center"> <!-- Price and pay -->
+                <Label Content="Total Price: " x:Name="totalPrice"/>
+                <Button Content="Pay" Click="Pay"/>
+            </StackPanel>
+        </Grid>
 
     </Grid>
 </Window>
