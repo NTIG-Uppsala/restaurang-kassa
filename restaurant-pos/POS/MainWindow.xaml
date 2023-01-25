@@ -8,9 +8,6 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button Content="Pay" HorizontalAlignment="Left" Margin="540,274,0,0" VerticalAlignment="Top" Height="150" Width="250" Click="Pay"/>
-        <Button Content="ThirdItem" HorizontalAlignment="Left" Margin="238,197,0,0" VerticalAlignment="Top" Click="AddThirdItem" Height="80" Width="250" RenderTransformOrigin="-3.275,6.005"/>
-        <Button x:Name="btnAdd" Margin="238,27,312,327" Click="AddCoffee" Height="80" Width="250">Coffee</Button>
-        <Button Content="Bun" HorizontalAlignment="Left" Margin="238,112,0,0" VerticalAlignment="Top" Click="AddBun" Height="80" Width="250" RenderTransformOrigin="-0.16,-0.012"/>
         <ListBox Margin="540,0,0,0" Name="listBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="260" Height="217">
 
         </ListBox>
