@@ -34,18 +34,21 @@ namespace POS
         {
             cart.AddProduct(0, menu);
             listBox1.Items.Add("Coffe");
+            totalPrice.Content = "Total Price: " + cart.GetTotalPrice();
         }
 
         private void AddBun(object sender, RoutedEventArgs e)
         {
             cart.AddProduct(1, menu);
             listBox1.Items.Add("Bun");
+            totalPrice.Content = "Total Price: " + cart.GetTotalPrice();
         }
 
         private void AddThirdItem(object sender, RoutedEventArgs e)
         {
             cart.AddProduct(2, menu);
             listBox1.Items.Add("ThirdITEM");
+            totalPrice.Content = "Total Price: " + cart.GetTotalPrice();
         }
 
         private void Pay(object sender, RoutedEventArgs e)
