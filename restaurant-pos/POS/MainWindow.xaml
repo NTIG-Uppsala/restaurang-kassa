@@ -15,6 +15,7 @@
 
         </ListBox>
         <Label Content="Total Price" Name="totalPrice" HorizontalAlignment="Left" Margin="540,237,0,0" VerticalAlignment="Top" Width="250"/>
+        <ListBox Name="itemButtonList" Margin="10,27,579,6"/>
 
     </Grid>
 </Window>
