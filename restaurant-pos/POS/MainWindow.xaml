@@ -1,0 +1,16 @@
+﻿<Window x:Class="POS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:POS"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button Content="Pay" HorizontalAlignment="Left" Margin="510,267,0,0" VerticalAlignment="Top" Height="157" Width="280" Click="Pay"/>
+        <Button Content="ThirdItem" HorizontalAlignment="Left" Margin="10,294,0,0" VerticalAlignment="Top" Click="AddThirdItem" Height="42" Width="104" RenderTransformOrigin="-3.275,6.005"/>
+        <Button x:Name="btnAdd" Margin="10,17,534,323" Click="AddCoffee">Coffee</Button>
+        <Button Content="Bun" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" Click="AddBun" Height="173" Width="181" RenderTransformOrigin="-0.16,-0.012"/>
+
+    </Grid>
+</Window>

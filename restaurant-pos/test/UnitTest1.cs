@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.IO;
 using Microsoft.Data.Sqlite;
 using Restaurant_pos_program;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace Tests
 {
