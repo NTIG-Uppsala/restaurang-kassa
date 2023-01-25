@@ -28,22 +28,24 @@ namespace POS
         {
             InitializeComponent();
             LoadDatabaseProducts();
-
         }
 
         private void AddCoffee(object sender, RoutedEventArgs e)
         {
             cart.AddProduct(0, menu);
+            listBox1.Items.Add("Coffe");
         }
 
         private void AddBun(object sender, RoutedEventArgs e)
         {
             cart.AddProduct(1, menu);
+            listBox1.Items.Add("Bun");
         }
 
         private void AddThirdItem(object sender, RoutedEventArgs e)
         {
             cart.AddProduct(2, menu);
+            listBox1.Items.Add("ThirdITEM");
         }
 
         private void Pay(object sender, RoutedEventArgs e)
@@ -51,6 +53,7 @@ namespace POS
             Receipt receipt= new Receipt();
             receipt.CreateReceipt(cart);
             cart.Pay();
+            listBox1.Items.Clear();
         }
     }
 }
