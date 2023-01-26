@@ -12,25 +12,34 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-            <!-- Products in cart -->
+        <!-- Products in cart -->
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" FontSize="32" >
-            <StackPanel Name="itemButtonList" Grid.Column="0"/> <!-- Productlist -->
+            <StackPanel Name="itemButtonList" Grid.Column="0"/>
+            <!-- Productlist -->
         </ScrollViewer>
 
-        <Grid Grid.Column="1" Margin="15" HorizontalAlignment="right"> <!-- Cart -->
+        <Grid Grid.Column="1" Margin="15" HorizontalAlignment="right">
+            <!-- Cart -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" FontSize="32" > <!-- Products in cart -->
-                <StackPanel VerticalAlignment="top"> 
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" FontSize="32" >
+                <!-- Products in cart -->
+                <StackPanel VerticalAlignment="top">
                     <ListBox x:Name="cartBox" BorderThickness="0" HorizontalAlignment="Right" />
                 </StackPanel>
             </ScrollViewer>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Grid.Row="1" HorizontalAlignment="Center"> <!-- Price and pay -->
+            <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Grid.Row="1" HorizontalAlignment="Center">
+                <!-- Price and pay -->
                 <Label Content="Total Price: " x:Name="totalPrice"/>
-                <Button Content="Pay" Click="Pay"/>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Grid.Row="1" HorizontalAlignment="Center">
+                    <!-- Price and pay -->
+                    <Button Content="Clear" Click="Clear" Width="45" Margin="0 0 10 0"/>
+                    <Button Content="Pay" Click="Pay" Width="45"/>
+                </StackPanel>
+                
             </StackPanel>
         </Grid>
 

@@ -82,6 +82,12 @@ public partial class MainWindow : Window
             cartBox.Items.Clear();
             totalPrice.Content = "Total Price: " + cart.GetTotalPrice();
         }
+        private void Clear(object sender, RoutedEventArgs e)
+        {
+            cart.ClearCart();
+            cartBox.Items.Clear();
+            totalPrice.Content = "Total Price: " + cart.GetTotalPrice();
+        }
 
         private void itemButtonList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
