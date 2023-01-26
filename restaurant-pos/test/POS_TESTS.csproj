@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\restaurant-pos\restaurant-pos.csproj" />
+    <ProjectReference Include="..\restaurant-pos\POS_CLI.csproj" />
   </ItemGroup>
 
 </Project>
