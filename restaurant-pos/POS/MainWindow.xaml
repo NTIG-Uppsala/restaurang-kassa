@@ -5,13 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:POS"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid RenderTransformOrigin="0.471,0.485">
+        Title="MainWindow" 
+        Width="960"
+        Height="540" 
+        Name="POSMainWindow"
+        >
+    <Grid RenderTransformOrigin="0.471,0.485" Name="MainGrid" SizeChanged="MainGrid_SizeChanged">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Grid.LayoutTransform>
+            <ScaleTransform x:Name="ApplicationScaleTransform"
+                        CenterX="0"
+                        CenterY="0"
+                        ScaleX="{Binding ElementName=POSMainWindow, Path=ScaleValue}"
+                        ScaleY="{Binding ElementName=POSMainWindow, Path=ScaleValue}" 
+                />
+        </Grid.LayoutTransform>
         <!-- Products in cart -->
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" FontSize="32" >
             <StackPanel Name="itemButtonList" Grid.Column="0"/>
