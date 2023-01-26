@@ -54,15 +54,16 @@ namespace Restaurant_pos_program
         /*
             // Method to be used to get values from table
             query: SELECT * FROM Products WHERE id = @product_id AND price > @product_max_price
-            queryParameters: List<string[]> = {
-                string[]() { "@product_id", "1" }, 
-                string[]() { "@product_max_price", "150" }
+            queryParameters: Dictionary<string, object> = {
+                "@product_id": "value",
+                "@product_max_price": "10",
             }
             
             
          
          */
-        private DataTable QueryDataGetter(string query, List<string[]> queryParameters = null) 
+
+        private DataTable QueryDataGetter(string query, Dictionary<string, object> queryParameters = null) 
         { 
             DataTable datatable = new DataTable();
             using (var connection = new SqliteConnection(connectionString))
@@ -76,13 +77,10 @@ namespace Restaurant_pos_program
                 {
                     if (queryParameters != null)
                     {
-                        foreach (string[] param in queryParameters)
+                        foreach (KeyValuePair<string, object> param in queryParameters)
                         {
-                            string paramName = param[0];
-                            string paramValue = param[1];
-
-                            var p = new SqliteParameter(paramName,  paramValue);
-                            command.Parameters.Add(p);
+                            var parameter = new SqliteParameter(param.Key,  param.Value);
+                            command.Parameters.Add(parameter);
                         }
                     }
                 }
@@ -101,6 +99,49 @@ namespace Restaurant_pos_program
                 connection.Close();
             }
             return datatable; 
+        }
+
+        private int QueryDataSetter(string query, Dictionary<string, object> ?queryParameters = null)
+        {
+            int result = 0;
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+
+                command.CommandText = query;
+
+                try
+                {
+                    if (queryParameters != null)
+                    {
+                        foreach (KeyValuePair<string, object> param in queryParameters)
+                        {
+                            var parameter = new SqliteParameter(param.Key, param.Value);
+                            command.Parameters.Add(parameter);
+                        }
+                    }
+                }
+                catch (Exception exc)
+                {
+                    System.Diagnostics.Debug.WriteLine(exc.Message);
+                    throw new Exception(exc.Message);
+                }
+
+                try
+                {
+                    result = command.ExecuteNonQuery();
+
+                }
+                catch(Exception exc)
+                {
+                    System.Diagnostics.Debug.WriteLine(exc.Message);
+                    result = -1;
+                }
+
+                connection.Close();
+            }
+            return result;
         }
 
         public List<Product> GetProducts()
