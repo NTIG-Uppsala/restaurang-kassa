@@ -214,66 +214,52 @@ namespace Tests
         [TestMethod]
         public void TestQueryDataGetter()
         {
+
             Database database = new Database();
 
-            using (var connection = new SqliteConnection(database.connectionString))
+            Product product = new Product(1, "TEST PRODUCT", "TEST PRODUCT REMOVE IF SEEN", 15, 0.12m);
+            string newProductQuery = "INSERT INTO Products (price, name, description, taxID) VALUES (@price, @name, @description, @taxID);";
+            Dictionary<string, object> newProductParameters = new Dictionary<string, object>()
             {
-                connection.Open();
-                var command = connection.CreateCommand();
+                { "@price", 20},
+                { "@name", "TEST PRODUCT"},
+                { "@description", "TEST PRODUCT REMOVE IF SEEN"},
+                { "@taxID", 2},
+            };
 
-                /*command.CommandText = "INSERT INTO Products (price, name, description, taxID) VALUES (1500,TEST PRODUCT,YOU HAVE TO REMOVE ME, PLEASE! END IT! PLEASE! I AM BEGGING...,2)";
-                command.Parameters.Add("1500");
-                command.Parameters.Add("TEST PRODUCT");
-                command.Parameters.Add("YOU HAVE TO REMOVE ME, PLEASE! END IT! PLEASE! I AM BEGGING...");
-                command.Parameters.Add("2");
+            database.QueryDataSetter(newProductQuery, newProductParameters);
 
-                var p = new SqliteParameter("price", 15);
-                command.Parameters.Add(p);
-*/
-                command.CommandText = $"INSERT INTO \"main\".\"Products\"\r\n(\"price\", \"name\", \"description\", \"taxID\")\r\nVALUES (15, 'TEST PRODUCT', 'TEST PRODUCT REMOVE IF SEEN', 2);";
+            List<Product> productsFromDatabase = database.GetProducts();
 
-                Product product = new Product(719000, "TEST PRODUCT", "TEST PRODUCT REMOVE IF SEEN", 15, 0.12m);
-
-                try
+            foreach (Product databaseProduct in productsFromDatabase)
+            {
+                if (databaseProduct.name == product.name)
                 {
-                    command.ExecuteNonQuery();
-                    List<Product> productsFromDatabase = database.GetProducts();
-                    foreach (Product databaseProduct in productsFromDatabase)
-                    {
-                        if (databaseProduct.name != product.name) { continue; }
-                        else
-                        {
-                            Assert.IsTrue(true);
-                            break;
-                        }
-                    }
-                    command.CommandText = $"DELETE FROM  \"main\".\"Products\"  WHERE \"name\" = \"TEST PRODUCT\"";
-
-                    command.ExecuteNonQuery();
-
-                    productsFromDatabase = database.GetProducts();
-                    connection.Close();
-
-                    foreach (Product databaseProduct in productsFromDatabase)
-                    {
-                        if (databaseProduct.name == product.name) 
-                        { 
-                            Assert.IsTrue(false); 
-                        }
-                        else
-                        {
-                            Assert.IsTrue(true);
-                            break;
-                        }
-                    }
-
-
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
+                    Assert.AreEqual(databaseProduct.name, product.name);
+                    break;
                 }
             }
+
+            string deleteProductQuery = "DELETE FROM Products WHERE name=@name";
+            Dictionary<string, object> deleteProductParameters = new Dictionary<string, object>()
+            {
+                { "@name", "TEST PRODUCT"},
+            };
+            database.QueryDataSetter(deleteProductQuery, deleteProductParameters);
+
+            productsFromDatabase = database.GetProducts();
+
+            foreach (Product databaseProduct in productsFromDatabase)
+            {
+
+                if (databaseProduct.name == product.name)
+                {
+                    Assert.AreNotEqual(databaseProduct.name, product.name);
+                    break;
+                }
+
+            }
+
         }
     }
 }
