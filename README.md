@@ -3,19 +3,16 @@
 ## IDE<br>
 [Visual Studio](https://learn.microsoft.com/en-us/visualstudio/windows/?view=vs-2022)
 
-### Workloads
-[.Net Multi-platform APP UI Development](https://dotnet.microsoft.com/en-us/apps/maui)
-
 ## Frameworks<br>
 [.Net 6.0](https://learn.microsoft.com/en-us/dotnet/fundamentals/)<br>
-[MAUI](https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-6.0)<br> 
+[WPF](https://learn.microsoft.com/en-us/visualstudio/get-started/csharp/tutorial-wpf?view=vs-2022)<br> 
 
 ## Languages<br>
 XAML<br>
 C#
 
-## Running Tests<br>
-To run tests: Change the `testing` variable in the `MainPage()` method from `false` to `true` and run the program.<br>
+## Tests<br>
+The tests are using the MSTest framework.<br>
 
 ## Coding Convention
 [Microsoft C# Coding Conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
