@@ -63,7 +63,7 @@ namespace Restaurant_pos_program
          
          */
 
-        private DataTable QueryDataGetter(string query, Dictionary<string, object> queryParameters = null) 
+        public DataTable QueryDataGetter(string query, Dictionary<string, object> queryParameters = null) 
         { 
             DataTable datatable = new DataTable();
             using (var connection = new SqliteConnection(connectionString))
@@ -101,7 +101,7 @@ namespace Restaurant_pos_program
             return datatable; 
         }
 
-        private int QueryDataSetter(string query, Dictionary<string, object> ?queryParameters = null)
+        public int QueryDataSetter(string query, Dictionary<string, object> ?queryParameters = null)
         {
             int result = 0;
             using (var connection = new SqliteConnection(connectionString))
